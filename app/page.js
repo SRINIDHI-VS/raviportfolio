@@ -12,6 +12,9 @@ import Journey from "./components/Journey";
 import Approach from "./components/Approach";
 import Results from "./components/Results";
 import Gallery from "./components/Gallery";
+import Works from "./components/Works";
+import Achievements from "./components/Achievements";
+import Testimonials from "./components/Testimonials";
 
 export default function Home() {
   return (
@@ -38,9 +41,13 @@ export default function Home() {
 
       <Chapter index={3} num="04 / 05 — In Action" word="In Action" />
       <Gallery />
+      <Works />
 
-      {/* Sections (How It Works, Achievements, Testimonials, final CTA, Footer)
-          land here in Tasks 26-27. */}
+      <Chapter index={4} num="05 / 05 — Record" word="Record" />
+      <Achievements />
+      <Testimonials />
+
+      {/* final CTA + Footer land here in Task 27. */}
       <div style={{ height: "60vh" }} />
     </>
   );
