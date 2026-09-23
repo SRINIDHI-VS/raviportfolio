@@ -6,16 +6,32 @@ import { useScrollReveal, useMediaReveal } from "@/app/hooks/useScrollReveal";
 
 const COMPETITIONS = [
   {
-    photo: "/img/achievement.jpg",
-    alt: "Ravi holding his certificate and trophy at CFS Classic 2026",
-    name: "CFS Classic 2026",
-    detail: "Mr. Karnataka · Bib #185",
+    name: "CFS Classic 2026 — Season 2",
+    detail: "Mr. Karnataka · Participation, Bib #185",
+    photos: [
+      {
+        src: "/img/achievement.jpg",
+        alt: "Ravi holding his certificate and trophy at CFS Classic 2026",
+      },
+      {
+        src: "/img/achievement-3.jpg",
+        alt: "Ravi backstage with his CFS Classic 2026 certificate and the event poster",
+      },
+    ],
   },
   {
-    photo: "/img/achievement-2.jpg",
-    alt: "Ravi on stage with his medal at the Garadi Classic 2026 championship",
     name: "Garadi Classic 2026",
-    detail: "Major Classic · Best of 5",
+    detail: "Best of 5",
+    photos: [
+      {
+        src: "/img/achievement-2.jpg",
+        alt: "Ravi on stage with his medal at the Garadi Classic 2026 championship",
+      },
+      {
+        src: "/img/achievement-4.jpg",
+        alt: "Ravi posing on stage at the Garadi Classic 2026 championship",
+      },
+    ],
   },
 ];
 
@@ -39,15 +55,19 @@ export default function Achievements() {
       <div className="wrap">
         <div className="ach-photo reveal-media">
           {COMPETITIONS.map((c) => (
-            <Image
-              key={c.photo}
-              src={c.photo}
-              alt={c.alt}
-              width={600}
-              height={880}
-              quality={90}
-              style={{ width: "100%", height: "auto" }}
-            />
+            <div className="ach-photo-group" key={c.name}>
+              {c.photos.map((p) => (
+                <Image
+                  key={p.src}
+                  src={p.src}
+                  alt={p.alt}
+                  width={420}
+                  height={620}
+                  quality={90}
+                  style={{ width: "100%", height: "auto" }}
+                />
+              ))}
+            </div>
           ))}
         </div>
         <div className="ach-copy">

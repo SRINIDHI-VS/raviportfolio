@@ -456,8 +456,9 @@ a {
   /* ACHIEVEMENTS — two photos now (Track Record), stacked in one narrow column rather than
      widened side by side, so the existing photo/copy balance doesn't get cramped. */
   .ach .wrap{display:flex; align-items:center; gap:60px;}
-  .ach-photo{flex:0 0 320px; max-width:40vw; display:flex; flex-direction:column; gap:14px;}
-  .ach-photo img{width:100%; display:block; object-fit:cover; border-radius:20px; border:1px solid var(--border);}
+  .ach-photo{flex:0 0 400px; max-width:46vw; display:flex; flex-direction:column; gap:14px;}
+  .ach-photo-group{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+  .ach-photo img{width:100%; display:block; object-fit:cover; border-radius:16px; border:1px solid var(--border);}
   .ach-copy{flex:1; min-width:280px;}
   .ach-copy h2{font-size:clamp(32px,5vw,50px); font-weight:800; margin:0 0 18px;}
   .ach-copy p{font-size:16px; line-height:1.7; color:#cfccc3; max-width:52ch; margin:0 0 22px;}
@@ -564,8 +565,8 @@ a {
     .hero-card{padding:10px 14px;}
     .hero-card .n{font-size:21px;}
     .hero-card .l{font-size:9.5px;}
-    .hero-card.hc1{left:-4%;}
-    .hero-card.hc2{right:-4%;}
+    .hero-card.hc1{top:34%; left:-4%;}
+    .hero-card.hc2{top:40%; right:-4%;}
     .hero-card.hc3{left:-6%;}
     .hero-card.hc4{right:-2%;}
     .hero-ring{display:none;}
