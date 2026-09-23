@@ -153,6 +153,7 @@ export default function Hero() {
             priority
             fetchPriority="high"
             quality={90}
+            sizes="(max-width: 900px) 45vw, 400px"
             style={{ width: "auto", height: "100%" }}
           />
           <div className="hero-card hc1">
