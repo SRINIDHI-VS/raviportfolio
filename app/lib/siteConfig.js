@@ -7,7 +7,7 @@ export const CONTACT = {
   email: "ravindragym2000@gmail.com",
   instagramHandle: "@ravindramb",
   instagramUrl: "https://www.instagram.com/ravindramb/",
-  enrollUrl: "https://ravindrafitness.netlify.app",
+  enrollUrl: "https://enrolltofitnesswithravindra.vercel.app",
 };
 
 export function whatsappLink(message) {
