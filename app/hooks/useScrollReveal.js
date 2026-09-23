@@ -146,3 +146,69 @@ export function useGoldRuleGrow(ref) {
     { scope: ref, dependencies: [] }
   );
 }
+
+/**
+ * Split-section photos (.reveal-media): a bottom-to-top clip-path wipe that plays once on
+ * scroll-in, followed by a continuous depth-parallax + 3D tilt for as long as the photo is on
+ * screen. Deliberately its own system rather than the generic [data-reveal] fade-up used
+ * elsewhere — a plain opacity/translateY fade reads as flat next to this much bigger photo, so
+ * it gets a bigger entrance (the wipe) plus ongoing motion (the tilt), and runs on every device,
+ * not just desktop, since scroll-scrub can never fight or freeze a phone's scroll the way a pin
+ * can.
+ */
+export function useMediaReveal(containerRef) {
+  useGSAP(
+    () => {
+      const container = containerRef.current;
+      if (!container) return;
+
+      const reduceMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+      ).matches;
+      const els = container.querySelectorAll(".reveal-media");
+      if (!els.length) return;
+
+      if (reduceMotion) {
+        els.forEach((el) => {
+          el.style.clipPath = "none";
+          const img = el.querySelector("img");
+          if (img) img.style.transform = "none";
+        });
+        return;
+      }
+
+      els.forEach((el) => {
+        const img = el.querySelector("img");
+        if (!img) return;
+        gsap.set(img, { scale: 1.45, rotation: -2, transformPerspective: 900 });
+
+        gsap
+          .timeline({ scrollTrigger: { trigger: el, start: "top 85%", once: true } })
+          .fromTo(
+            el,
+            { clipPath: "inset(0% 0 100% 0)", webkitClipPath: "inset(0% 0 100% 0)" },
+            {
+              clipPath: "inset(0% 0 0% 0)",
+              webkitClipPath: "inset(0% 0 0% 0)",
+              duration: 1.05,
+              ease: "power4.out",
+            },
+            0
+          )
+          .to(img, { scale: 1.02, rotation: 0, duration: 1.3, ease: "power3.out" }, 0.05);
+
+        gsap.fromTo(
+          img,
+          { yPercent: -7, rotationY: -9 },
+          {
+            yPercent: 7,
+            rotationY: 9,
+            ease: "none",
+            scrollTrigger: { trigger: el, start: "top bottom", end: "bottom top", scrub: 0.6 },
+          }
+        );
+      });
+    },
+    { scope: containerRef, dependencies: [] }
+  );
+}
