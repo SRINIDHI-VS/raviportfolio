@@ -45,6 +45,7 @@ function useStackDeck(stackRef) {
       function onClick() {
         if (flying || order[0] !== idx) return;
         flying = true;
+        stack.style.pointerEvents = "none";
         if (hint) hint.style.opacity = "0";
         const dir = idx % 2 === 0 ? 1 : -1;
         card.style.transform = `translate(${dir * 130}%, -10%) rotate(${dir * 22}deg)`;
@@ -56,6 +57,7 @@ function useStackDeck(stackRef) {
           render();
           void card.offsetWidth; // force reflow before re-enabling the transition
           card.style.transition = "";
+          stack.style.pointerEvents = "";
           flying = false;
         }, 480);
       }

@@ -25,7 +25,7 @@ export default function Footer() {
           <a
             className="footer-chip reveal"
             data-reveal
-            href="https://instagram.com/g2gitofficial"
+            href="https://www.instagram.com/ravindramb/"
             target="_blank"
             rel="noopener"
           >
@@ -36,7 +36,7 @@ export default function Footer() {
                 <circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none" />
               </svg>
             </span>
-            @g2gitofficial
+            @ravindramb
           </a>
           <a
             className="footer-chip reveal"

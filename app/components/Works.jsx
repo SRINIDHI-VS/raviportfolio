@@ -38,8 +38,8 @@ export default function Works() {
     <section className="works" ref={sectionRef}>
       <div className="works-bg" id="worksBg">
         <picture>
-          <source media="(max-width: 900px)" srcSet="/img/flex-location-mobile.jpg" />
-          <img src="/img/flex-location.jpg" alt="Ravi training outdoors" loading="lazy" decoding="async" />
+          <source media="(max-width: 900px)" srcSet="/img/gallery-9.jpg" />
+          <img src="/img/flex-location.jpg" alt="Ravi training in the gym" loading="lazy" decoding="async" />
         </picture>
       </div>
       <div className="wrap works-content">
