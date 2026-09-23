@@ -147,6 +147,9 @@ a {
 
   /* CHAPTER dividers — full-screen pinned scene changes between sections */
   .chapter{min-height:100svh; display:flex; align-items:center; justify-content:center; text-align:center; padding:0;}
+  .chapter-bg{position:absolute; inset:-6% -6%; z-index:0;}
+  .chapter-bg img{width:100%; height:100%; object-fit:cover; display:block;}
+  .chapter-bg::after{content:""; position:absolute; inset:0; background:rgba(11,11,12,.78);}
   .chapter-inner{position:relative; z-index:2;}
   .chapter-num{display:block; font-size:13px; font-weight:800; letter-spacing:.35em; color:var(--gold); margin-bottom:22px; text-transform:uppercase;}
   .chapter-word{font-size:clamp(64px,17vw,230px); font-weight:900; line-height:.88; margin:0; color:var(--text); letter-spacing:-.01em;}

@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "@/app/lib/gsapClient";
 
@@ -57,12 +58,17 @@ function useChapterScrub(chapterRef, index) {
   );
 }
 
-export default function Chapter({ index, num, word }) {
+export default function Chapter({ index, num, word, photo }) {
   const chapterRef = useRef(null);
   useChapterScrub(chapterRef, index);
 
   return (
     <section className="chapter" ref={chapterRef}>
+      {photo && (
+        <div className="chapter-bg" aria-hidden="true">
+          <Image src={photo} alt="" fill sizes="100vw" />
+        </div>
+      )}
       <div className="chapter-inner">
         <span className="chapter-num">{num}</span>
         <h2 className="chapter-word">{word}</h2>

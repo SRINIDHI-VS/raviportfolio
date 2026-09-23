@@ -21,6 +21,10 @@ export default function FinalCta() {
         <p className="reveal" data-reveal>
           Enrollment takes less than five minutes — details, terms and payment, all in one place.
         </p>
+        <p className="reveal" data-reveal style={{ fontSize: 14 }}>
+          Every program is priced around your goals, schedule and location — no fixed packages.
+          You&apos;ll know the exact cost before you commit to anything.
+        </p>
         <a
           className="btn reveal magnetic"
           data-reveal

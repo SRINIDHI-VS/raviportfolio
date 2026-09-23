@@ -51,10 +51,21 @@ export default function Works() {
           No gym membership required. Ravi comes to your apartment or your own gym, so training
           fits your life — not the other way around.
         </p>
-        <div className="placeholder-chip reveal" data-reveal>
-          <span className="dot" />
-          Service areas &amp; weekly availability — coming soon
-        </div>
+        <a
+          className="footer-chip reveal"
+          data-reveal
+          href="https://wa.me/919902269943?text=Hi%20Ravi!%20I%20wanted%20to%20check%20if%20you%20train%20in%20my%20area%20and%20your%20current%20availability."
+          target="_blank"
+          rel="noopener"
+        >
+          <span className="fc-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+              <path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3z" />
+              <path d="M8.5 9.5c.3 3 2.8 5.5 5.8 5.8" strokeLinecap="round" />
+            </svg>
+          </span>
+          Check availability for your area &amp; schedule
+        </a>
       </div>
     </section>
   );

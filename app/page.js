@@ -31,21 +31,17 @@ export default function Home() {
       <Hero />
       <Specialties />
 
-      <Chapter index={0} num="01 / 05 — Origin" word="Origin" />
+      <Chapter index={0} num="01 / 03 — Origin" word="Origin" photo="/img/gallery-6.jpg" />
       <Story />
       <Journey />
-
-      <Chapter index={1} num="02 / 05 — Philosophy" word="Philosophy" />
       <Approach />
 
-      <Chapter index={2} num="03 / 05 — Proof" word="Proof" />
+      <Chapter index={1} num="02 / 03 — Proof" word="Proof" photo="/img/gallery-2.jpg" />
       <Results />
-
-      <Chapter index={3} num="04 / 05 — In Action" word="In Action" />
       <Gallery />
       <Works />
 
-      <Chapter index={4} num="05 / 05 — Record" word="Record" />
+      <Chapter index={2} num="03 / 03 — Record" word="Record" photo="/img/gallery-3.jpg" />
       <Achievements />
       <Testimonials />
 

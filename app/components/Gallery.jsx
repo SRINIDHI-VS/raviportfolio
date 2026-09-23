@@ -4,7 +4,8 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 import { useScrollReveal } from "@/app/hooks/useScrollReveal";
 
-const GALLERY_COUNT = 10;
+const GALLERY_NUMBERS = [1, 4, 5, 7, 8, 9, 10];
+const GALLERY_COUNT = GALLERY_NUMBERS.length;
 
 /**
  * Tap-through stack of photos — tap the top one, it flips away and the next is underneath,
@@ -101,10 +102,10 @@ export default function Gallery() {
           <div className="stack-hint">
             <span>Tap</span>
           </div>
-          {Array.from({ length: GALLERY_COUNT }, (_, i) => (
-            <div className="stack-card" key={i} data-i={i}>
+          {GALLERY_NUMBERS.map((n, i) => (
+            <div className="stack-card" key={n} data-i={i}>
               <Image
-                src={`/img/gallery-${i + 1}.jpg`}
+                src={`/img/gallery-${n}.jpg`}
                 alt={`Training photo ${i + 1}`}
                 fill
                 sizes="(max-width: 900px) 86vw, 420px"

@@ -13,6 +13,43 @@ import { useScrollReveal } from "@/app/hooks/useScrollReveal";
  * the pin (unreliable on phone browsers) but keeps a lighter parallax so the section still feels
  * alive while scrolling past it, rather than static.
  */
+function useStatCountUp(sectionRef) {
+  useGSAP(
+    () => {
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const nodes = sectionRef.current.querySelectorAll(".hero-card .n[data-count]");
+
+      nodes.forEach((node) => {
+        const target = parseInt(node.dataset.count, 10);
+        const suffix = node.dataset.suffix || "";
+
+        if (reduceMotion) return;
+
+        const obj = { v: 0 };
+        node.textContent = "0" + suffix;
+
+        ScrollTrigger.create({
+          trigger: sectionRef.current,
+          start: "top 75%",
+          once: true,
+          onEnter: () => {
+            gsap.to(obj, {
+              v: target,
+              duration: 1.4,
+              delay: 0.6,
+              ease: "power2.out",
+              onUpdate: () => {
+                node.textContent = Math.round(obj.v) + suffix;
+              },
+            });
+          },
+        });
+      });
+    },
+    { scope: sectionRef, dependencies: [] }
+  );
+}
+
 function useHeroScrub(sectionRef) {
   useGSAP(
     () => {
@@ -75,6 +112,7 @@ export default function Hero() {
   const sectionRef = useRef(null);
   useScrollReveal(sectionRef);
   useHeroScrub(sectionRef);
+  useStatCountUp(sectionRef);
 
   return (
     <section className="hero" id="heroSection" ref={sectionRef}>
@@ -116,11 +154,11 @@ export default function Hero() {
             style={{ width: "auto", height: "100%" }}
           />
           <div className="hero-card hc1">
-            <div className="n">8+</div>
+            <div className="n" data-count="8" data-suffix="+">8+</div>
             <div className="l">Yrs Experience</div>
           </div>
           <div className="hero-card hc2">
-            <div className="n">1000+</div>
+            <div className="n" data-count="1000" data-suffix="+">1000+</div>
             <div className="l">Transformations</div>
           </div>
           <div className="hero-card hc3">
@@ -128,7 +166,7 @@ export default function Hero() {
             <div className="l">Every Session</div>
           </div>
           <div className="hero-card hc4">
-            <div className="n">100%</div>
+            <div className="n" data-count="100" data-suffix="%">100%</div>
             <div className="l">At Your Space</div>
           </div>
         </div>

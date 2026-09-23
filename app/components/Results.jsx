@@ -19,7 +19,7 @@ export default function Results() {
           className="split-heading"
           style={{ fontSize: "clamp(34px,5vw,54px)", fontWeight: 800, margin: 0, maxWidth: "22ch" }}
         >
-          1000+ Transformations. Here Are Three.
+          1000+ Transformations. A Few, Right Here.
         </h2>
         <p className="reveal" data-reveal style={{ color: "var(--muted)", fontSize: 15, marginTop: 14 }}>
           Real clients, real timelines — not stock photos. Drag the handle.
