@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 import { gsap, ScrollTrigger } from "@/app/lib/gsapClient";
 import { useScrollReveal } from "@/app/hooks/useScrollReveal";
@@ -106,7 +107,14 @@ export default function Hero() {
         <div className="hero-photo-stage reveal" data-reveal id="heroPhoto">
           <div className="hero-ring r1" />
           <div className="hero-ring r2" />
-          <img src="/img/hero-cutout.webp" alt="Ravi, personal trainer" />
+          <Image
+            src="/img/hero-cutout.webp"
+            alt="Ravi, personal trainer"
+            width={780}
+            height={975}
+            priority
+            style={{ width: "auto", height: "100%" }}
+          />
           <div className="hero-card hc1">
             <div className="n">8+</div>
             <div className="l">Yrs Experience</div>

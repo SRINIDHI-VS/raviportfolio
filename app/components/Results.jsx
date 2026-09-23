@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import { useScrollReveal } from "@/app/hooks/useScrollReveal";
 import CompareSlider from "./CompareSlider";
 
@@ -49,12 +50,13 @@ export default function Results() {
             <div className="cap">Client transformation — front view, full program</div>
           </div>
           <div className="compare-card reveal static-card" data-reveal>
-            <img
+            <Image
               className="static-photo"
               src="/img/client-somashekar.jpg"
               alt="Client transformation, 9-month progress grid, month 1 through month 9"
-              loading="lazy"
-              decoding="async"
+              width={540}
+              height={713}
+              style={{ width: "100%", height: "auto" }}
             />
             <div className="cap">Client transformation — 9-month progress, month by month</div>
           </div>

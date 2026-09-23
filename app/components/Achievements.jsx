@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import { useScrollReveal, useMediaReveal } from "@/app/hooks/useScrollReveal";
 
 export default function Achievements() {
@@ -12,17 +13,19 @@ export default function Achievements() {
     <section className="ach" ref={sectionRef}>
       <div className="wrap">
         <div className="ach-photo reveal-media">
-          <img
+          <Image
             src="/img/achievement.jpg"
             alt="Ravi at a competition with an award"
-            loading="lazy"
-            decoding="async"
+            width={600}
+            height={880}
+            style={{ width: "100%", height: "auto" }}
           />
-          <img
+          <Image
             src="/img/achievement-2.jpg"
             alt="Ravi flexing on stage at a bodybuilding competition"
-            loading="lazy"
-            decoding="async"
+            width={600}
+            height={880}
+            style={{ width: "100%", height: "auto" }}
           />
         </div>
         <div className="ach-copy">

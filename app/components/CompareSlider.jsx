@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 import { gsap, ScrollTrigger } from "@/app/lib/gsapClient";
 
@@ -178,9 +179,9 @@ export default function CompareSlider({
       aria-valuemax={100}
       aria-valuenow={50}
     >
-      <img src={afterSrc} alt={afterAlt} loading="lazy" decoding="async" />
+      <Image src={afterSrc} alt={afterAlt} fill sizes="(max-width: 900px) 90vw, 420px" />
       <div className="compare-before" ref={beforeRef}>
-        <img src={beforeSrc} alt={beforeAlt} loading="lazy" decoding="async" />
+        <Image src={beforeSrc} alt={beforeAlt} fill sizes="(max-width: 900px) 90vw, 420px" />
       </div>
       <span className="compare-tag compare-tag-before">{beforeTag}</span>
       <span className="compare-tag compare-tag-after">{afterTag}</span>

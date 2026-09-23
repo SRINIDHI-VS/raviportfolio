@@ -12,16 +12,67 @@ import "@fontsource/big-shoulders-display/800";
 import "@fontsource/big-shoulders-display/900";
 import "./globals.css";
 
+const SITE_URL = "https://raviportfolio-smoky.vercel.app";
+const TITLE = "Ravi Fitness — Personal Training in Bengaluru";
+const DESCRIPTION =
+  "One-on-one and group personal training in Bengaluru. Sessions run at the client's own home or gym — every plan built around you, not a template.";
+
 export const metadata = {
-  title: "Ravi Fitness — Personal Training in Bengaluru",
-  description:
-    "One-on-one and group personal training in Bengaluru. Sessions run at the client's own home or gym — every plan built around you, not a template.",
+  metadataBase: new URL(SITE_URL),
+  title: TITLE,
+  description: DESCRIPTION,
+  keywords: [
+    "personal trainer Bengaluru",
+    "personal training Bangalore",
+    "home gym trainer",
+    "fitness coach Bengaluru",
+    "body transformation trainer",
+  ],
+  alternates: { canonical: "/" },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    url: SITE_URL,
+    siteName: "Ravi Fitness",
+    type: "website",
+    locale: "en_IN",
+    images: [{ url: "/img/hero.jpg", width: 700, height: 880, alt: "Ravi, personal trainer" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+    images: ["/img/hero.jpg"],
+  },
+};
+
+// LocalBusiness structured data (schema.org ExerciseGym) — Ravi trains clients at their own home
+// or gym rather than a fixed studio, so this deliberately omits a street "address" (there isn't
+// one to give) and uses areaServed instead, matching Google's guidance for service-area
+// businesses without a public storefront.
+const JSON_LD = {
+  "@context": "https://schema.org",
+  "@type": "ExerciseGym",
+  name: "Ravi Fitness",
+  description: DESCRIPTION,
+  url: SITE_URL,
+  image: `${SITE_URL}/img/hero.jpg`,
+  telephone: "+919902269943",
+  email: "ravindragym2000@gmail.com",
+  areaServed: { "@type": "City", name: "Bengaluru" },
+  sameAs: ["https://instagram.com/g2gitofficial"],
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }}
+        />
+        {children}
+      </body>
     </html>
   );
 }

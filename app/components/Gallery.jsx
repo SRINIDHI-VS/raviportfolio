@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Image from "next/image";
 import { useScrollReveal } from "@/app/hooks/useScrollReveal";
 
 const GALLERY_COUNT = 10;
@@ -100,11 +101,11 @@ export default function Gallery() {
           </div>
           {Array.from({ length: GALLERY_COUNT }, (_, i) => (
             <div className="stack-card" key={i} data-i={i}>
-              <img
+              <Image
                 src={`/img/gallery-${i + 1}.jpg`}
                 alt={`Training photo ${i + 1}`}
-                loading="lazy"
-                decoding="async"
+                fill
+                sizes="(max-width: 900px) 86vw, 420px"
               />
             </div>
           ))}

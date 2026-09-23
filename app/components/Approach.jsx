@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import { useScrollReveal, useGoldRuleGrow, useMediaReveal } from "@/app/hooks/useScrollReveal";
 
 export default function Approach() {
@@ -29,7 +30,13 @@ export default function Approach() {
           </p>
         </div>
         <div className="split-photo reveal-media">
-          <img src="/img/approach.jpg" alt="Ravi training in the gym" loading="lazy" decoding="async" />
+          <Image
+            src="/img/approach.jpg"
+            alt="Ravi training in the gym"
+            width={700}
+            height={880}
+            style={{ width: "100%", height: "auto" }}
+          />
         </div>
       </div>
     </section>
