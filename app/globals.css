@@ -218,14 +218,14 @@ a {
     display:flex; align-items:center; justify-content:center;
     font-family:'Big Shoulders Display',sans-serif; font-weight:800; font-size:17px; color:var(--gold-soft);
     background:rgba(23,23,26,.55); backdrop-filter:blur(6px); pointer-events:auto;
-    justify-self:start;
+    justify-self:start; grid-column:1;
   }
   /* middle grid column, so these stay genuinely centered regardless of the logo/button's own
      widths either side — a flex space-between would drift them off-center instead. Desktop
      only: on mobile there's no room for a link row and people scroll, they don't navigate a
      single long page via a menu, so it's hidden below rather than squeezed in or moved to a
      hamburger menu. */
-  nav .nav-links{justify-self:center; display:flex; gap:26px; pointer-events:auto;}
+  nav .nav-links{justify-self:center; grid-column:2; display:flex; gap:26px; pointer-events:auto;}
   nav .nav-link{
     font-size:12px; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
     color:var(--muted); text-decoration:none; position:relative; padding-bottom:3px;
@@ -240,7 +240,7 @@ a {
     nav .nav-link:hover::after{right:0;}
   }
   nav .navcta{pointer-events:auto;}
-  nav .btn{pointer-events:auto; padding:10px 20px; font-size:12px; justify-self:end;}
+  nav .btn{pointer-events:auto; padding:10px 20px; font-size:12px; justify-self:end; grid-column:3;}
   @media(max-width:900px){
     nav .nav-links{display:none;}
   }
