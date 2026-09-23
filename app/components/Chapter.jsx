@@ -66,7 +66,7 @@ export default function Chapter({ index, num, word, photo }) {
     <section className="chapter" ref={chapterRef}>
       {photo && (
         <div className="chapter-bg" aria-hidden="true">
-          <Image src={photo} alt="" fill sizes="100vw" />
+          <Image src={photo} alt="" fill sizes="100vw" quality={90} />
         </div>
       )}
       <div className="chapter-inner">

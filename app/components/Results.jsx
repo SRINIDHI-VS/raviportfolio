@@ -56,6 +56,7 @@ export default function Results() {
               alt="Client transformation, 9-month progress grid, month 1 through month 9"
               width={540}
               height={713}
+              quality={90}
               style={{ width: "100%", height: "auto" }}
             />
             <div className="cap">Client transformation — 9-month progress, month by month</div>

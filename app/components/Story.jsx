@@ -41,6 +41,7 @@ export default function Story() {
             alt="Ravi at a bodybuilding competition"
             width={700}
             height={880}
+            quality={90}
             style={{ width: "100%", height: "auto" }}
           />
         </div>

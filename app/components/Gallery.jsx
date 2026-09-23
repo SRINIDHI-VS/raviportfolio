@@ -109,6 +109,7 @@ export default function Gallery() {
                 alt={`Training photo ${i + 1}`}
                 fill
                 sizes="(max-width: 900px) 86vw, 420px"
+                quality={90}
               />
             </div>
           ))}

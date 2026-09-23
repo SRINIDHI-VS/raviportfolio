@@ -35,6 +35,7 @@ export default function Approach() {
             alt="Ravi training in the gym"
             width={700}
             height={880}
+            quality={90}
             style={{ width: "100%", height: "auto" }}
           />
         </div>

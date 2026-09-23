@@ -45,6 +45,7 @@ export default function Achievements() {
               alt={c.alt}
               width={600}
               height={880}
+              quality={90}
               style={{ width: "100%", height: "auto" }}
             />
           ))}

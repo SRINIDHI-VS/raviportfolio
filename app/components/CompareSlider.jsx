@@ -179,9 +179,9 @@ export default function CompareSlider({
       aria-valuemax={100}
       aria-valuenow={50}
     >
-      <Image src={afterSrc} alt={afterAlt} fill sizes="(max-width: 900px) 90vw, 420px" />
+      <Image src={afterSrc} alt={afterAlt} fill sizes="(max-width: 900px) 90vw, 420px" quality={90} />
       <div className="compare-before" ref={beforeRef}>
-        <Image src={beforeSrc} alt={beforeAlt} fill sizes="(max-width: 900px) 90vw, 420px" />
+        <Image src={beforeSrc} alt={beforeAlt} fill sizes="(max-width: 900px) 90vw, 420px" quality={90} />
       </div>
       <span className="compare-tag compare-tag-before">{beforeTag}</span>
       <span className="compare-tag compare-tag-after">{afterTag}</span>

@@ -4,6 +4,8 @@
 // unlocks Vercel's own image optimization (responsive resizing, WebP/AVIF, no unoptimized:true
 // needed) for every next/image use across the site.
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+  images: { qualities: [90] },
+};
 
 export default nextConfig;
