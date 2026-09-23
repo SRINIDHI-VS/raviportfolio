@@ -567,7 +567,7 @@ a {
     .hero-card .l{font-size:9.5px;}
     .hero-card.hc1{top:34%; left:-4%;}
     .hero-card.hc2{top:40%; right:-4%;}
-    .hero-card.hc3{left:-6%;}
+    .hero-card.hc3{top:70%; bottom:auto; left:-6%;}
     .hero-card.hc4{right:-2%;}
     .hero-ring{display:none;}
     .split .wrap, .split.reverse .wrap{flex-direction:column;}
