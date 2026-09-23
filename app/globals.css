@@ -425,6 +425,7 @@ a {
      same on desktop and mobile so there's no separate breakpoint variant to keep in sync. */
   .stack-wrap{position:relative; width:min(420px,86vw); aspect-ratio:3/4; margin:0 auto;}
   .stack-card{position:absolute; inset:0; border-radius:18px; overflow:hidden; border:1px solid var(--border); background:var(--surface); box-shadow:0 30px 60px -20px rgba(0,0,0,.6); cursor:pointer; transition:transform .5s cubic-bezier(.65,0,.35,1), opacity .45s ease; will-change:transform, opacity;}
+  .stack-card:not(:first-child){opacity:0; transform:translateY(22px) scale(0.88);}
   .stack-card img{width:100%; height:100%; object-fit:cover; display:block; pointer-events:none; -webkit-user-drag:none;}
   .stack-hint{position:absolute; top:14px; right:14px; z-index:50; background:rgba(11,11,12,.62); border:1px solid var(--border); color:var(--text); font-size:10.5px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; padding:7px 14px; border-radius:999px; pointer-events:none; display:flex; align-items:center; gap:6px; animation:stackhint 2.6s ease-in-out infinite;}
   @keyframes stackhint{0%,100%{transform:translateX(0);} 50%{transform:translateX(-4px);}}
@@ -432,7 +433,7 @@ a {
   @media(prefers-reduced-motion:reduce){ .stack-hint{animation:none;} }
 
   /* HOW IT WORKS (full bleed photo bg) */
-  .works{padding:0; min-height:78vh; display:flex; align-items:flex-end;}
+  .works{padding:0; margin-bottom:70px; min-height:78vh; display:flex; align-items:flex-end;}
   .works-bg{position:absolute; inset:-8% -8%; z-index:0;}
   .works-bg picture{display:block; width:100%; height:100%;}
   .works-bg img{width:100%; height:100%; object-fit:cover; display:block;}
@@ -460,6 +461,12 @@ a {
   .ach-copy{flex:1; min-width:280px;}
   .ach-copy h2{font-size:clamp(32px,5vw,50px); font-weight:800; margin:0 0 18px;}
   .ach-copy p{font-size:16px; line-height:1.7; color:#cfccc3; max-width:52ch; margin:0 0 22px;}
+  .ach-results{display:flex; flex-direction:column; gap:10px; max-width:360px;}
+  .ach-result{display:flex; align-items:center; gap:14px; border:1px solid var(--border); border-radius:14px; padding:12px 18px; background:rgba(255,255,255,.02);}
+  .ach-result-icon{display:flex; align-items:center; justify-content:center; width:36px; height:36px; border-radius:50%; background:rgba(201,162,75,.1); flex:none; color:var(--gold);}
+  .ach-result-icon svg{width:19px; height:19px;}
+  .ach-result strong{display:block; font-size:14.5px; font-weight:700; color:var(--text);}
+  .ach-result-detail{display:block; font-size:12.5px; color:var(--muted); margin-top:2px;}
 
   /* TESTIMONIALS — user-draggable continuous scroller */
   .testi-marquee{position:relative; margin-top:46px;}

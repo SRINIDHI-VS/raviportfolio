@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 import { useScrollReveal } from "@/app/hooks/useScrollReveal";
 
-const GALLERY_NUMBERS = [1, 4, 5, 7, 8, 9, 10];
+const GALLERY_NUMBERS = [1, 4, 5, 7, 8, 10];
 const GALLERY_COUNT = GALLERY_NUMBERS.length;
 
 /**

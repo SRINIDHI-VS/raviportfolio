@@ -148,8 +148,8 @@ export default function Hero() {
           <Image
             src="/img/hero-cutout.webp"
             alt="Ravi, personal trainer"
-            width={780}
-            height={975}
+            width={702}
+            height={1155}
             priority
             style={{ width: "auto", height: "100%" }}
           />
