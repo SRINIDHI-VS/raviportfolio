@@ -48,10 +48,18 @@ function useStackDeck(stackRef) {
         flying = true;
         stack.style.pointerEvents = "none";
         if (hint) hint.style.opacity = "0";
+        card.style.zIndex = 0;
         const dir = idx % 2 === 0 ? 1 : -1;
         card.style.transform = `translate(${dir * 130}%, -10%) rotate(${dir * 22}deg)`;
         card.style.opacity = "0";
-        setTimeout(() => {
+
+        let settled = false;
+        let fallback;
+        function settle() {
+          if (settled) return;
+          settled = true;
+          card.removeEventListener("transitionend", onTransitionEnd);
+          clearTimeout(fallback);
           order.push(order.shift());
           current = (current % total) + 1;
           card.style.transition = "none";
@@ -60,7 +68,13 @@ function useStackDeck(stackRef) {
           card.style.transition = "";
           stack.style.pointerEvents = "";
           flying = false;
-        }, 480);
+        }
+        function onTransitionEnd(e) {
+          if (e.target !== card || e.propertyName !== "transform") return;
+          settle();
+        }
+        card.addEventListener("transitionend", onTransitionEnd);
+        fallback = setTimeout(settle, 650);
       }
       card.addEventListener("click", onClick);
       return onClick;
