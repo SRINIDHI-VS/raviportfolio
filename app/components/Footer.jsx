@@ -2,6 +2,8 @@
 
 import { useRef } from "react";
 import { useScrollReveal, useGoldRuleGrow } from "@/app/hooks/useScrollReveal";
+import { CONTACT, whatsappLink } from "@/app/lib/siteConfig";
+import LogoMark from "./LogoMark";
 
 export default function Footer() {
   const footerRef = useRef(null);
@@ -14,7 +16,9 @@ export default function Footer() {
       <div className="footer-glow" aria-hidden="true" />
       <div className="wrap">
         <div className="footer-brand-row reveal" data-reveal>
-          <div className="footer-mark disp">R</div>
+          <div className="footer-mark">
+            <LogoMark />
+          </div>
           <div>
             <div className="fname disp">RAVI</div>
             <p className="footer-tagline">Personal Training · Bengaluru</p>
@@ -25,7 +29,7 @@ export default function Footer() {
           <a
             className="footer-chip reveal"
             data-reveal
-            href="https://www.instagram.com/ravindramb/"
+            href={CONTACT.instagramUrl}
             target="_blank"
             rel="noopener"
           >
@@ -36,12 +40,12 @@ export default function Footer() {
                 <circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none" />
               </svg>
             </span>
-            @ravindramb
+            {CONTACT.instagramHandle}
           </a>
           <a
             className="footer-chip reveal"
             data-reveal
-            href="https://wa.me/919902269943"
+            href={whatsappLink()}
             target="_blank"
             rel="noopener"
           >
@@ -53,14 +57,14 @@ export default function Footer() {
             </span>
             WhatsApp
           </a>
-          <a className="footer-chip reveal" data-reveal href="mailto:ravindragym2000@gmail.com">
+          <a className="footer-chip reveal" data-reveal href={`mailto:${CONTACT.email}`}>
             <span className="fc-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
                 <rect x="3" y="5" width="18" height="14" rx="2.5" />
                 <path d="M4 7l8 6 8-6" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </span>
-            ravindragym2000@gmail.com
+            {CONTACT.email}
           </a>
           <span className="footer-chip reveal" data-reveal>
             <span className="fc-icon">
@@ -68,7 +72,7 @@ export default function Footer() {
                 <path d="M6.6 3.5 9.3 8.1c.3.5.2 1.1-.2 1.5L7.4 11.3a13 13 0 0 0 5.3 5.3l1.7-1.7c.4-.4 1-.5 1.5-.2l4.6 2.7c.6.4.7 1.2.3 1.7l-1.6 2c-.4.5-1 .8-1.7.8C10.8 21.6 2.4 13.2 2.2 6.5c0-.6.3-1.3.8-1.7l2-1.6c.5-.4 1.3-.3 1.7.3z" />
               </svg>
             </span>
-            9902269943
+            {CONTACT.phoneDisplay}
           </span>
         </div>
       </div>

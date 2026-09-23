@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 import { gsap, ScrollTrigger } from "@/app/lib/gsapClient";
 import { useScrollReveal } from "@/app/hooks/useScrollReveal";
+import { CONTACT } from "@/app/lib/siteConfig";
 
 /**
  * Hero pin+scrub (desktop) / plain scrub (mobile) — ported from the vanilla site's hero timeline.
@@ -131,7 +132,7 @@ export default function Hero() {
           <div className="hero-cta-row reveal" data-reveal>
             <a
               className="btn magnetic"
-              href="https://ravindrafitness.netlify.app"
+              href={CONTACT.enrollUrl}
               target="_blank"
               rel="noopener"
             >
@@ -142,7 +143,7 @@ export default function Hero() {
             </a>
           </div>
         </div>
-        <div className="hero-photo-stage reveal" data-reveal id="heroPhoto">
+        <div className="hero-photo-stage" id="heroPhoto">
           <div className="hero-ring r1" />
           <div className="hero-ring r2" />
           <Image

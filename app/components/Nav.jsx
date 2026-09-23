@@ -1,3 +1,6 @@
+import { CONTACT } from "@/app/lib/siteConfig";
+import LogoMark from "./LogoMark";
+
 const NAV_LINKS = [
   { href: "#story", label: "Story" },
   { href: "#results", label: "Results" },
@@ -8,7 +11,9 @@ const NAV_LINKS = [
 export default function Nav() {
   return (
     <nav>
-      <div className="navmark disp">R</div>
+      <div className="navmark">
+        <LogoMark />
+      </div>
       <div className="nav-links">
         {NAV_LINKS.map((l) => (
           <a key={l.href} className="nav-link" href={l.href}>
@@ -18,7 +23,7 @@ export default function Nav() {
       </div>
       <a
         className="btn magnetic"
-        href="https://ravindrafitness.netlify.app"
+        href={CONTACT.enrollUrl}
         target="_blank"
         rel="noopener"
       >

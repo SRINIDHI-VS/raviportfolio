@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { useScrollReveal } from "@/app/hooks/useScrollReveal";
+import { CONTACT } from "@/app/lib/siteConfig";
 
 export default function FinalCta() {
   const sectionRef = useRef(null);
@@ -28,7 +29,7 @@ export default function FinalCta() {
         <a
           className="btn reveal magnetic"
           data-reveal
-          href="https://ravindrafitness.netlify.app"
+          href={CONTACT.enrollUrl}
           target="_blank"
           rel="noopener"
           style={{ marginTop: 8 }}

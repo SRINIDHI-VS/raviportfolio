@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "@/app/lib/gsapClient";
 import { useScrollReveal, useDeferredReady } from "@/app/hooks/useScrollReveal";
+import { whatsappLink } from "@/app/lib/siteConfig";
 
 function useWorksParallax(sectionRef) {
   const ready = useDeferredReady();
@@ -56,7 +57,9 @@ export default function Works() {
         <a
           className="footer-chip reveal"
           data-reveal
-          href="https://wa.me/919902269943?text=Hi%20Ravi!%20I%20wanted%20to%20check%20if%20you%20train%20in%20my%20area%20and%20your%20current%20availability."
+          href={whatsappLink(
+            "Hi Ravi! I wanted to check if you train in my area and your current availability."
+          )}
           target="_blank"
           rel="noopener"
         >

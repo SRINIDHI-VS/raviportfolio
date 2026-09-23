@@ -1,11 +1,13 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { whatsappLink } from "@/app/lib/siteConfig";
 
 const DISMISS_KEY = "raviWaBubbleDismissed";
 const SCROLL_HIDE_THRESHOLD = 600;
-const WA_HREF =
-  "https://wa.me/919902269943?text=Hi%20Ravi!%20I%20saw%20your%20training%20page%20and%20had%20a%20few%20questions%20before%20enrolling.";
+const WA_HREF = whatsappLink(
+  "Hi Ravi! I saw your training page and had a few questions before enrolling."
+);
 
 /**
  * Floating chatbot-style WhatsApp button. The greeting bubble pops itself out a few seconds

@@ -11,8 +11,8 @@ import "@fontsource/big-shoulders-display/700";
 import "@fontsource/big-shoulders-display/800";
 import "@fontsource/big-shoulders-display/900";
 import "./globals.css";
+import { SITE_URL, CONTACT } from "@/app/lib/siteConfig";
 
-const SITE_URL = "https://raviportfolio-smoky.vercel.app";
 const TITLE = "Ravi Fitness — Personal Training in Bengaluru";
 const DESCRIPTION =
   "One-on-one and group personal training in Bengaluru. Sessions run at the client's own home or gym — every plan built around you, not a template.";
@@ -57,10 +57,10 @@ const JSON_LD = {
   description: DESCRIPTION,
   url: SITE_URL,
   image: `${SITE_URL}/img/hero.jpg`,
-  telephone: "+919902269943",
-  email: "ravindragym2000@gmail.com",
+  telephone: CONTACT.phoneE164,
+  email: CONTACT.email,
   areaServed: { "@type": "City", name: "Bengaluru" },
-  sameAs: ["https://instagram.com/g2gitofficial"],
+  sameAs: [CONTACT.instagramUrl],
 };
 
 export default function RootLayout({ children }) {

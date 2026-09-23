@@ -215,8 +215,7 @@ a {
   /* monogram mark — a simple gold-ring "R" badge as a stand-in until a real logo exists */
   nav .navmark{
     width:38px; height:38px; border-radius:50%; border:1.5px solid var(--gold);
-    display:flex; align-items:center; justify-content:center;
-    font-family:'Big Shoulders Display',sans-serif; font-weight:800; font-size:17px; color:var(--gold-soft);
+    display:flex; align-items:center; justify-content:center; overflow:hidden;
     background:rgba(23,23,26,.55); backdrop-filter:blur(6px); pointer-events:auto;
     justify-self:start; grid-column:1;
   }
@@ -596,7 +595,7 @@ a {
   footer{position:relative; padding:64px 0 calc(40px + env(safe-area-inset-bottom,0px)); border-top:1px solid var(--border); font-size:13px; color:var(--muted-2); overflow:hidden; scroll-margin-top:100px;}
   .footer-glow{position:absolute; top:-130px; left:50%; translate:-50% 0; width:680px; height:340px; background:radial-gradient(ellipse at center, rgba(201,162,75,.15), transparent 72%); pointer-events:none; z-index:0;}
   .footer-brand-row{display:flex; align-items:center; gap:20px; position:relative; z-index:1;}
-  .footer-mark{width:52px; height:52px; border-radius:50%; border:1.5px solid var(--gold); display:flex; align-items:center; justify-content:center; font-size:21px; font-weight:800; color:var(--gold-soft); background:rgba(201,162,75,.07); flex:none;}
+  .footer-mark{width:52px; height:52px; border-radius:50%; border:1.5px solid var(--gold); display:flex; align-items:center; justify-content:center; overflow:hidden; background:rgba(201,162,75,.07); flex:none;}
   footer .fname{font-family:'Big Shoulders Display',sans-serif; font-weight:900; font-size:clamp(30px,4vw,42px); color:var(--text); line-height:1; letter-spacing:-.01em;}
   .footer-tagline{margin:7px 0 0; font-size:12px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--gold);}
   .footer-rule{margin:32px 0 26px; position:relative; z-index:1;}
