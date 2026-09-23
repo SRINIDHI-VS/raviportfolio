@@ -3,7 +3,7 @@ export default function Nav() {
     <nav>
       <div className="navmark disp">R</div>
       <a
-        className="btn-ghost"
+        className="btn magnetic"
         href="https://ravindrafitness.netlify.app"
         target="_blank"
         rel="noopener"
