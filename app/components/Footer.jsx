@@ -10,7 +10,7 @@ export default function Footer() {
   useGoldRuleGrow(ruleRef);
 
   return (
-    <footer ref={footerRef}>
+    <footer id="contact" ref={footerRef}>
       <div className="footer-glow" aria-hidden="true" />
       <div className="wrap">
         <div className="footer-brand-row reveal" data-reveal>
@@ -100,10 +100,6 @@ export default function Footer() {
                 the next block is made.
               </li>
             </ul>
-            <span className="draft-flag">
-              Below — drafted, not reviewed. Ravi to check (ideally with a lawyer) before this
-              goes live
-            </span>
             <h5>Training terms</h5>
             <ul>
               <li>

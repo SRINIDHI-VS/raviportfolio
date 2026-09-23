@@ -51,7 +51,7 @@ export default function Achievements() {
   useMediaReveal(sectionRef);
 
   return (
-    <section className="ach" ref={sectionRef}>
+    <section className="ach" id="achievements" ref={sectionRef}>
       <div className="wrap">
         <div className="ach-photo reveal-media">
           {COMPETITIONS.map((c) => (

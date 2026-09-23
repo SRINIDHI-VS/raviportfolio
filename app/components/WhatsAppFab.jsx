@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 
 const DISMISS_KEY = "raviWaBubbleDismissed";
+const SCROLL_HIDE_THRESHOLD = 600;
 const WA_HREF =
   "https://wa.me/919902269943?text=Hi%20Ravi!%20I%20saw%20your%20training%20page%20and%20had%20a%20few%20questions%20before%20enrolling.";
 
@@ -25,19 +26,36 @@ export default function WhatsAppFab() {
     } catch (e) {}
 
     let showTimer, hideTimer;
-    function dismiss() {
+    function hide() {
       bubble.classList.remove("show");
       clearTimeout(showTimer);
       clearTimeout(hideTimer);
+    }
+    function dismiss() {
+      hide();
       try {
         sessionStorage.setItem(DISMISS_KEY, "1");
       } catch (e) {}
     }
 
+    // Fixed to the corner, so it sits wherever the visitor has scrolled to. Only pop it up while
+    // still near the top (still an entry greeting) — otherwise it lands on top of whatever
+    // content is on screen further down the page for the next several seconds. If they scroll
+    // past the threshold while it's already showing, hide it immediately rather than let it keep
+    // covering things until its own timer runs out.
     if (!dismissed) {
-      showTimer = setTimeout(() => bubble.classList.add("show"), 3200);
-      hideTimer = setTimeout(() => bubble.classList.remove("show"), 11500);
+      showTimer = setTimeout(() => {
+        if (window.scrollY < SCROLL_HIDE_THRESHOLD) {
+          bubble.classList.add("show");
+          hideTimer = setTimeout(() => bubble.classList.remove("show"), 11500);
+        }
+      }, 3200);
     }
+
+    function onScroll() {
+      if (window.scrollY >= SCROLL_HIDE_THRESHOLD) hide();
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
 
     const closeBtn = bubble.querySelector(".wa-bubble-close");
     const onClose = (ev) => {
@@ -53,6 +71,7 @@ export default function WhatsAppFab() {
     return () => {
       clearTimeout(showTimer);
       clearTimeout(hideTimer);
+      window.removeEventListener("scroll", onScroll);
       closeBtn?.removeEventListener("click", onClose);
       fab?.removeEventListener("click", dismiss);
     };

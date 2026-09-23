@@ -33,6 +33,23 @@
 
 html {
   scroll-behavior: auto;
+  scrollbar-color: var(--border) var(--ink);
+  scrollbar-width: thin;
+}
+
+::-webkit-scrollbar {
+  width: 11px;
+}
+::-webkit-scrollbar-track {
+  background: var(--ink);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 6px;
+  border: 2px solid var(--ink);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gold-soft);
 }
 
 body {
@@ -192,7 +209,7 @@ a {
   nav{
     position:fixed; top:0; left:0; right:0; z-index:50;
     padding:calc(env(safe-area-inset-top,0px) + 18px) 20px 0;
-    display:flex; justify-content:space-between; align-items:center;
+    display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:16px;
     pointer-events:none;
   }
   /* monogram mark — a simple gold-ring "R" badge as a stand-in until a real logo exists */
@@ -201,9 +218,32 @@ a {
     display:flex; align-items:center; justify-content:center;
     font-family:'Big Shoulders Display',sans-serif; font-weight:800; font-size:17px; color:var(--gold-soft);
     background:rgba(23,23,26,.55); backdrop-filter:blur(6px); pointer-events:auto;
+    justify-self:start;
+  }
+  /* middle grid column, so these stay genuinely centered regardless of the logo/button's own
+     widths either side — a flex space-between would drift them off-center instead. Desktop
+     only: on mobile there's no room for a link row and people scroll, they don't navigate a
+     single long page via a menu, so it's hidden below rather than squeezed in or moved to a
+     hamburger menu. */
+  nav .nav-links{justify-self:center; display:flex; gap:26px; pointer-events:auto;}
+  nav .nav-link{
+    font-size:12px; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
+    color:var(--muted); text-decoration:none; position:relative; padding-bottom:3px;
+    transition:color .25s;
+  }
+  nav .nav-link::after{
+    content:""; position:absolute; left:0; right:100%; bottom:0; height:1px; background:var(--gold-soft);
+    transition:right .3s cubic-bezier(.2,.8,.2,1);
+  }
+  @media(hover:hover){
+    nav .nav-link:hover{color:var(--text);}
+    nav .nav-link:hover::after{right:0;}
   }
   nav .navcta{pointer-events:auto;}
-  nav .btn{pointer-events:auto; padding:10px 20px; font-size:12px;}
+  nav .btn{pointer-events:auto; padding:10px 20px; font-size:12px; justify-self:end;}
+  @media(max-width:900px){
+    nav .nav-links{display:none;}
+  }
   @media(max-width:820px){
     nav::before{
       content:""; position:absolute; top:0; left:0; right:0; height:130px; z-index:-1;
@@ -211,7 +251,10 @@ a {
     }
   }
 
-  section{position:relative; padding:120px 0; overflow:hidden;}
+  /* scroll-margin-top: the fixed nav bar overlays the page rather than pushing it down, so
+     without this, jumping straight to a section (the new nav links above) would tuck its
+     heading up under the nav instead of landing it in clear view. */
+  section{position:relative; padding:120px 0; overflow:hidden; scroll-margin-top:100px;}
   section .wrap{padding:0 4px;}
 
   /* word-mask reveal */
@@ -312,7 +355,12 @@ a {
   @media(prefers-reduced-motion:reduce){ .specialty-chip::after{animation:none; display:none;} }
   @media(max-width:900px){
     .specialties{padding-bottom:50px;}
-    .specialty-chip{font-size:12.5px; padding:9px 15px 9px 12px;}
+    /* a plain flex-wrap here breaks into an uneven 2/1/1/2 row pattern once chip text lengths
+       vary, since each row only wraps as many chips as happen to fit — reads as unintentional
+       next to the rest of the site's deliberate grids. A fixed 2-column grid keeps every row
+       even regardless of label length. */
+    .specialties .wrap{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+    .specialty-chip{font-size:12.5px; padding:9px 15px 9px 12px; justify-content:center;}
   }
 
   .scroll-cue{position:absolute; bottom:28px; left:50%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:8px; color:var(--muted-2); font-size:11px; letter-spacing:.16em; text-transform:uppercase; z-index:2;}
@@ -447,6 +495,13 @@ a {
      interaction (tap the top photo, it flips away, the next one is underneath) reads the
      same on desktop and mobile so there's no separate breakpoint variant to keep in sync. */
   .stack-wrap{position:relative; width:min(420px,86vw); aspect-ratio:3/4; margin:0 auto;}
+  /* on a wide desktop screen a 420px card centered in the middle of the section reads as
+     unfinished — huge empty margins either side with nothing filling them. Sizing up on larger
+     screens keeps the same single-stack design (interaction stays identical, per above) while
+     actually using the space instead of floating a small card in a sea of black. */
+  @media(min-width:1200px){
+    .stack-wrap{width:min(560px, 34vw);}
+  }
   .stack-card{position:absolute; inset:0; border-radius:18px; overflow:hidden; border:1px solid var(--border); background:var(--surface); box-shadow:0 30px 60px -20px rgba(0,0,0,.6); cursor:pointer; transition:transform .5s cubic-bezier(.65,0,.35,1), opacity .45s ease; will-change:transform, opacity;}
   .stack-card:not(:first-child){opacity:0; transform:translateY(22px) scale(0.88);}
   .stack-card img{width:100%; height:100%; object-fit:cover; display:block; pointer-events:none; -webkit-user-drag:none;}
@@ -538,7 +593,7 @@ a {
      property, never `transform`, since these chips carry the `.reveal` class and GSAP's
      one-shot entrance tween leaves its own inline `transform` sitting on the element forever
      after it plays (see the specialty-chip notes above) — same conflict, same fix. */
-  footer{position:relative; padding:64px 0 calc(40px + env(safe-area-inset-bottom,0px)); border-top:1px solid var(--border); font-size:13px; color:var(--muted-2); overflow:hidden;}
+  footer{position:relative; padding:64px 0 calc(40px + env(safe-area-inset-bottom,0px)); border-top:1px solid var(--border); font-size:13px; color:var(--muted-2); overflow:hidden; scroll-margin-top:100px;}
   .footer-glow{position:absolute; top:-130px; left:50%; translate:-50% 0; width:680px; height:340px; background:radial-gradient(ellipse at center, rgba(201,162,75,.15), transparent 72%); pointer-events:none; z-index:0;}
   .footer-brand-row{display:flex; align-items:center; gap:20px; position:relative; z-index:1;}
   .footer-mark{width:52px; height:52px; border-radius:50%; border:1.5px solid var(--gold); display:flex; align-items:center; justify-content:center; font-size:21px; font-weight:800; color:var(--gold-soft); background:rgba(201,162,75,.07); flex:none;}
@@ -574,7 +629,6 @@ a {
   .terms-note{margin-top:16px; padding:22px 24px; border:1px solid var(--border); border-radius:14px; background:rgba(255,255,255,.02); font-size:13.5px; line-height:1.75; color:var(--muted); max-width:760px;}
   .terms-note h5{margin:26px 0 12px; padding-top:20px; border-top:1px solid var(--border); font-size:12.5px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; color:var(--text);}
   .terms-note h5:first-child{margin-top:0; padding-top:0; border-top:none;}
-  .terms-note .draft-flag{display:block; margin:20px 0 6px; font-size:10.5px; font-weight:800; letter-spacing:.05em; text-transform:uppercase; color:var(--gold-soft); border:1px dashed var(--border); border-radius:999px; padding:6px 14px;}
   .terms-note ul{list-style:none; margin:14px 0 0; padding-left:0;}
   .terms-note li{position:relative; margin:0 0 13px; padding-left:26px;}
   .terms-note li::before{

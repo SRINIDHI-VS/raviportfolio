@@ -10,7 +10,7 @@ export default function Results() {
   useScrollReveal(sectionRef);
 
   return (
-    <section ref={sectionRef}>
+    <section id="results" ref={sectionRef}>
       <div className="wrap">
         <p className="eyebrow reveal" data-reveal>
           Real Results

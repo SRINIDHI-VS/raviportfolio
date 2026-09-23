@@ -108,7 +108,7 @@ export default function Gallery() {
           The Work Behind The Numbers
         </h2>
         <p className="reveal" data-reveal style={{ color: "var(--muted)", fontSize: 15, margin: 0 }}>
-          Tap the photo to flip to the next one.
+          Click or tap the photo to flip to the next one.
         </p>
       </div>
       <div className="wrap" style={{ marginTop: 48 }}>
