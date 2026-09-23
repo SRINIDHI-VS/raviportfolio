@@ -1,7 +1,34 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap, ScrollTrigger } from "@/app/lib/gsapClient";
+
+/**
+ * With 12+ sections on one page, every hook below used to run its GSAP setup — which measures
+ * the DOM (getBoundingClientRect etc. under the hood for each ScrollTrigger) — the instant its
+ * component mounted, all at once, during initial hydration. That synchronous pile-up was the
+ * biggest single piece of the "photo takes ~4 seconds to fully show up" problem. This hook
+ * defers that setup to the browser's next idle moment instead, so it runs after the first paint
+ * rather than blocking it. requestIdleCallback has a 400ms cap so it still runs promptly even on
+ * a busy page; Safari has no requestIdleCallback, so it falls back to a short setTimeout. Every
+ * element this affects is already hidden by CSS from first paint (see .reveal / .reveal-media in
+ * globals.css), so the short delay before it animates in is invisible — there's nothing to flash.
+ */
+export function useDeferredReady() {
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
+    const hasIdle = typeof window.requestIdleCallback === "function";
+    const id = hasIdle
+      ? window.requestIdleCallback(() => setReady(true), { timeout: 400 })
+      : setTimeout(() => setReady(true), 120);
+    return () => {
+      if (hasIdle) window.cancelIdleCallback(id);
+      else clearTimeout(id);
+    };
+  }, []);
+  return ready;
+}
 
 /**
  * Fade-up-on-scroll for every [data-reveal] element inside `containerRef`. Mirrors the original
@@ -27,8 +54,10 @@ import { gsap, ScrollTrigger } from "@/app/lib/gsapClient";
  * touches — not just the ones known to need a hover effect today.
  */
 export function useScrollReveal(containerRef, { stagger = 0 } = {}) {
+  const ready = useDeferredReady();
   useGSAP(
     () => {
+      if (!ready) return;
       const container = containerRef.current;
       if (!container) return;
 
@@ -64,7 +93,7 @@ export function useScrollReveal(containerRef, { stagger = 0 } = {}) {
         });
       });
     },
-    { scope: containerRef, dependencies: [] }
+    { scope: containerRef, dependencies: [ready] }
   );
 }
 
@@ -77,8 +106,10 @@ export function useScrollReveal(containerRef, { stagger = 0 } = {}) {
  * one-shot reveal above, and for the same reason (see that hook's docstring).
  */
 export function useSpecialtyChipsReveal(containerRef) {
+  const ready = useDeferredReady();
   useGSAP(
     () => {
+      if (!ready) return;
       const container = containerRef.current;
       if (!container) return;
 
@@ -120,13 +151,15 @@ export function useSpecialtyChipsReveal(containerRef) {
         }
       );
     },
-    { scope: containerRef, dependencies: [] }
+    { scope: containerRef, dependencies: [ready] }
   );
 }
 
 export function useGoldRuleGrow(ref) {
+  const ready = useDeferredReady();
   useGSAP(
     () => {
+      if (!ready) return;
       const el = ref.current;
       if (!el) return;
       const reduceMotion = window.matchMedia(
@@ -143,7 +176,7 @@ export function useGoldRuleGrow(ref) {
         onEnter: () => el.classList.add("grown"),
       });
     },
-    { scope: ref, dependencies: [] }
+    { scope: ref, dependencies: [ready] }
   );
 }
 
@@ -157,8 +190,10 @@ export function useGoldRuleGrow(ref) {
  * can.
  */
 export function useMediaReveal(containerRef) {
+  const ready = useDeferredReady();
   useGSAP(
     () => {
+      if (!ready) return;
       const container = containerRef.current;
       if (!container) return;
 
@@ -197,21 +232,23 @@ export function useMediaReveal(containerRef) {
           )
           .to(imgs, { scale: 1.02, rotation: 0, duration: 1.3, ease: "power3.out", stagger: 0.06 }, 0.05);
 
-        imgs.forEach((img, i) => {
-          const dir = i % 2 === 0 ? 1 : -1;
-          gsap.fromTo(
-            img,
-            { yPercent: -7 * dir, rotationY: -9 * dir },
-            {
-              yPercent: 7 * dir,
-              rotationY: 9 * dir,
-              ease: "none",
-              scrollTrigger: { trigger: el, start: "top bottom", end: "bottom top", scrub: 0.6 },
-            }
-          );
-        });
+        // One ScrollTrigger drives every image in this container (Achievements has 4), instead
+        // of one per image — GSAP's function-based values let each target keep its own
+        // alternating direction, so the motion is identical, it's just computed off a single
+        // scroll listener rather than four.
+        const dirs = imgs.map((_, i) => (i % 2 === 0 ? 1 : -1));
+        gsap.fromTo(
+          imgs,
+          { yPercent: (i) => -7 * dirs[i], rotationY: (i) => -9 * dirs[i] },
+          {
+            yPercent: (i) => 7 * dirs[i],
+            rotationY: (i) => 9 * dirs[i],
+            ease: "none",
+            scrollTrigger: { trigger: el, start: "top bottom", end: "bottom top", scrub: 0.6 },
+          }
+        );
       });
     },
-    { scope: containerRef, dependencies: [] }
+    { scope: containerRef, dependencies: [ready] }
   );
 }

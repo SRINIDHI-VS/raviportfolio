@@ -4,6 +4,7 @@ import { useRef } from "react";
 import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "@/app/lib/gsapClient";
+import { useDeferredReady } from "@/app/hooks/useScrollReveal";
 
 /**
  * Full-screen scene-change divider between major sections ("01 / 05 — Origin", etc). Desktop
@@ -13,8 +14,10 @@ import { gsap } from "@/app/lib/gsapClient";
  * `index` just alternates the pop/zoom rotation direction between chapters (even vs odd).
  */
 function useChapterScrub(chapterRef, index) {
+  const ready = useDeferredReady();
   useGSAP(
     () => {
+      if (!ready) return;
       const el = chapterRef.current;
       const word = el.querySelector(".chapter-word");
       const num = el.querySelector(".chapter-num");
@@ -54,7 +57,7 @@ function useChapterScrub(chapterRef, index) {
           .to(word, { scale: 2.6, opacity: 0, rotate: 5 * flip, duration: 0.3, ease: "none" }, 0.7);
       }
     },
-    { scope: chapterRef, dependencies: [] }
+    { scope: chapterRef, dependencies: [ready] }
   );
 }
 

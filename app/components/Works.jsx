@@ -3,11 +3,13 @@
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "@/app/lib/gsapClient";
-import { useScrollReveal } from "@/app/hooks/useScrollReveal";
+import { useScrollReveal, useDeferredReady } from "@/app/hooks/useScrollReveal";
 
 function useWorksParallax(sectionRef) {
+  const ready = useDeferredReady();
   useGSAP(
     () => {
+      if (!ready) return;
       const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       if (reduceMotion) return;
       gsap.fromTo(
@@ -25,7 +27,7 @@ function useWorksParallax(sectionRef) {
         }
       );
     },
-    { scope: sectionRef, dependencies: [] }
+    { scope: sectionRef, dependencies: [ready] }
   );
 }
 
