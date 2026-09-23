@@ -15,6 +15,8 @@ import Gallery from "./components/Gallery";
 import Works from "./components/Works";
 import Achievements from "./components/Achievements";
 import Testimonials from "./components/Testimonials";
+import FinalCta from "./components/FinalCta";
+import Footer from "./components/Footer";
 
 export default function Home() {
   return (
@@ -47,8 +49,8 @@ export default function Home() {
       <Achievements />
       <Testimonials />
 
-      {/* final CTA + Footer land here in Task 27. */}
-      <div style={{ height: "60vh" }} />
+      <FinalCta />
+      <Footer />
     </>
   );
 }
