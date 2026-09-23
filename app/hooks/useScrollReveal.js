@@ -68,6 +68,62 @@ export function useScrollReveal(containerRef, { stagger = 0 } = {}) {
   );
 }
 
+/**
+ * Specialty chips: scroll-SCRUBBED reveal, not fire-once — tied directly to scroll position so
+ * it plays out as the visitor's finger moves and can't be scrolled past unseen (the failure mode
+ * a timed tween has on a fast mobile swipe). A scrub tween has no onComplete of its own since
+ * it's driven by scroll rather than autoplay, so ScrollTrigger's onLeave (fires once scroll
+ * passes the end of the entrance zone) stands in for it — same removeProperty fix as the
+ * one-shot reveal above, and for the same reason (see that hook's docstring).
+ */
+export function useSpecialtyChipsReveal(containerRef) {
+  useGSAP(
+    () => {
+      const container = containerRef.current;
+      if (!container) return;
+
+      const reduceMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+      ).matches;
+      const chips = container.querySelectorAll(".specialty-chip");
+      if (!chips.length) return;
+
+      if (reduceMotion) {
+        chips.forEach((el) => {
+          el.style.opacity = 1;
+          el.style.transform = "none";
+        });
+        return;
+      }
+
+      gsap.fromTo(
+        chips,
+        { opacity: 0, y: 34 },
+        {
+          opacity: 1,
+          y: 0,
+          ease: "none",
+          stagger: 0.12,
+          scrollTrigger: {
+            trigger: container,
+            start: "top 94%",
+            end: "top 60%",
+            scrub: 0.45,
+            onLeave: () => {
+              chips.forEach((el) => {
+                el.style.removeProperty("translate");
+                el.style.removeProperty("rotate");
+                el.style.removeProperty("scale");
+              });
+            },
+          },
+        }
+      );
+    },
+    { scope: containerRef, dependencies: [] }
+  );
+}
+
 export function useGoldRuleGrow(ref) {
   useGSAP(
     () => {
