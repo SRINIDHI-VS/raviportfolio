@@ -178,9 +178,9 @@ export function useMediaReveal(containerRef) {
       }
 
       els.forEach((el) => {
-        const img = el.querySelector("img");
-        if (!img) return;
-        gsap.set(img, { scale: 1.45, rotation: -2, transformPerspective: 900 });
+        const imgs = Array.from(el.querySelectorAll("img"));
+        if (!imgs.length) return;
+        gsap.set(imgs, { scale: 1.45, rotation: -2, transformPerspective: 900 });
 
         gsap
           .timeline({ scrollTrigger: { trigger: el, start: "top 85%", once: true } })
@@ -195,18 +195,21 @@ export function useMediaReveal(containerRef) {
             },
             0
           )
-          .to(img, { scale: 1.02, rotation: 0, duration: 1.3, ease: "power3.out" }, 0.05);
+          .to(imgs, { scale: 1.02, rotation: 0, duration: 1.3, ease: "power3.out", stagger: 0.06 }, 0.05);
 
-        gsap.fromTo(
-          img,
-          { yPercent: -7, rotationY: -9 },
-          {
-            yPercent: 7,
-            rotationY: 9,
-            ease: "none",
-            scrollTrigger: { trigger: el, start: "top bottom", end: "bottom top", scrub: 0.6 },
-          }
-        );
+        imgs.forEach((img, i) => {
+          const dir = i % 2 === 0 ? 1 : -1;
+          gsap.fromTo(
+            img,
+            { yPercent: -7 * dir, rotationY: -9 * dir },
+            {
+              yPercent: 7 * dir,
+              rotationY: 9 * dir,
+              ease: "none",
+              scrollTrigger: { trigger: el, start: "top bottom", end: "bottom top", scrub: 0.6 },
+            }
+          );
+        });
       });
     },
     { scope: containerRef, dependencies: [] }

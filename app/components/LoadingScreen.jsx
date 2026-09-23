@@ -14,7 +14,7 @@ export default function LoadingScreen() {
 
   useEffect(() => {
     let cancelled = false;
-    const minTime = new Promise((resolve) => setTimeout(resolve, 650));
+    const minTime = new Promise((resolve) => setTimeout(resolve, 1500));
     const fontsReady =
       typeof document !== "undefined" && document.fonts && document.fonts.ready
         ? document.fonts.ready
