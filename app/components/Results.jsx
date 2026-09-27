@@ -27,6 +27,42 @@ export default function Results() {
         <div className="compare-grid">
           <div className="compare-card reveal" data-reveal>
             <CompareSlider
+              afterSrc="/img/ba1-after.jpg"
+              afterAlt="After — side profile"
+              beforeSrc="/img/ba1-before.jpg"
+              beforeAlt="Before — side profile"
+              beforeTag="Before"
+              afterTag="After"
+              ariaLabel="Drag to compare before and after, side profile"
+            />
+            <div className="cap">Client transformation — side profile, full program</div>
+          </div>
+          <div className="compare-card reveal" data-reveal>
+            <CompareSlider
+              afterSrc="/img/ba2-after.jpg"
+              afterAlt="After — front view"
+              beforeSrc="/img/ba2-before.jpg"
+              beforeAlt="Before — front view"
+              beforeTag="Before"
+              afterTag="After"
+              ariaLabel="Drag to compare before and after, front view"
+            />
+            <div className="cap">Client transformation — front view, full program</div>
+          </div>
+          <div className="compare-card reveal static-card" data-reveal>
+            <Image
+              className="static-photo"
+              src="/img/client-somashekar.jpg"
+              alt="Client transformation, 9-month progress grid, month 1 through month 9"
+              width={540}
+              height={713}
+              quality={90}
+              style={{ width: "100%", height: "auto" }}
+            />
+            <div className="cap">Client transformation — 9-month progress, month by month</div>
+          </div>
+          <div className="compare-card reveal" data-reveal>
+            <CompareSlider
               afterSrc="/img/client-front-after.jpg"
               afterAlt="After — front view"
               beforeSrc="/img/client-front-before.jpg"
@@ -51,19 +87,6 @@ export default function Results() {
               ratioClass="ratio-client-side"
             />
             <div className="cap">Client transformation — side profile</div>
-          </div>
-
-          <div className="compare-card reveal static-card" data-reveal>
-            <Image
-              className="static-photo"
-              src="/img/client-somashekar.jpg"
-              alt="Client transformation, 9-month progress grid, month 1 through month 9"
-              width={540}
-              height={713}
-              quality={90}
-              style={{ width: "100%", height: "auto" }}
-            />
-            <div className="cap">Client transformation — 9-month progress, month by month</div>
           </div>
         </div>
       </div>
