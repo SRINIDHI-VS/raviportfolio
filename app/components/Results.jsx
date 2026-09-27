@@ -27,28 +27,32 @@ export default function Results() {
         <div className="compare-grid">
           <div className="compare-card reveal" data-reveal>
             <CompareSlider
-              afterSrc="/img/ba1-after.jpg"
-              afterAlt="After — side profile"
-              beforeSrc="/img/ba1-before.jpg"
-              beforeAlt="Before — side profile"
-              beforeTag="Before"
-              afterTag="After"
-              ariaLabel="Drag to compare before and after, side profile"
-            />
-            <div className="cap">Client transformation — side profile, full program</div>
-          </div>
-          <div className="compare-card reveal" data-reveal>
-            <CompareSlider
-              afterSrc="/img/ba2-after.jpg"
+              afterSrc="/img/client-front-after.jpg"
               afterAlt="After — front view"
-              beforeSrc="/img/ba2-before.jpg"
+              beforeSrc="/img/client-front-before.jpg"
               beforeAlt="Before — front view"
               beforeTag="Before"
               afterTag="After"
-              ariaLabel="Drag to compare before and after, front view"
+              ariaLabel="Drag to compare this client transformation from the front"
+              ratioClass="ratio-client-front"
             />
-            <div className="cap">Client transformation — front view, full program</div>
+            <div className="cap">Client transformation — front view</div>
           </div>
+
+          <div className="compare-card reveal" data-reveal>
+            <CompareSlider
+              afterSrc="/img/client-side-after.jpg"
+              afterAlt="After — side profile"
+              beforeSrc="/img/client-side-before.jpg"
+              beforeAlt="Before — side profile"
+              beforeTag="Before"
+              afterTag="After"
+              ariaLabel="Drag to compare this client transformation from the side"
+              ratioClass="ratio-client-side"
+            />
+            <div className="cap">Client transformation — side profile</div>
+          </div>
+
           <div className="compare-card reveal static-card" data-reveal>
             <Image
               className="static-photo"
@@ -60,18 +64,6 @@ export default function Results() {
               style={{ width: "100%", height: "auto" }}
             />
             <div className="cap">Client transformation — 9-month progress, month by month</div>
-          </div>
-          <div className="compare-card reveal" data-reveal>
-            <CompareSlider
-              afterSrc="/img/ba3-after.jpg"
-              afterAlt="After — client progress photo"
-              beforeSrc="/img/ba3-before.jpg"
-              beforeAlt="Before — client progress photo"
-              beforeTag="Before"
-              afterTag="After"
-              ariaLabel="Drag to compare this client's before and after progress"
-            />
-            <div className="cap">Client transformation — before and after progress</div>
           </div>
         </div>
       </div>
