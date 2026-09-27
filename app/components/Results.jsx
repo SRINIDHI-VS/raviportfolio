@@ -61,6 +61,18 @@ export default function Results() {
             />
             <div className="cap">Client transformation — 9-month progress, month by month</div>
           </div>
+          <div className="compare-card reveal" data-reveal>
+            <CompareSlider
+              afterSrc="/img/ba3-after.jpg"
+              afterAlt="After — client progress photo"
+              beforeSrc="/img/ba3-before.jpg"
+              beforeAlt="Before — client progress photo"
+              beforeTag="Before"
+              afterTag="After"
+              ariaLabel="Drag to compare this client's before and after progress"
+            />
+            <div className="cap">Client transformation — before and after progress</div>
+          </div>
         </div>
       </div>
     </section>
