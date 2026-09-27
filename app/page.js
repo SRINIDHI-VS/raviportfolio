@@ -22,6 +22,7 @@ const Results = dynamic(() => import("./components/Results"));
 const Gallery = dynamic(() => import("./components/Gallery"));
 const Works = dynamic(() => import("./components/Works"));
 const Achievements = dynamic(() => import("./components/Achievements"));
+const Certifications = dynamic(() => import("./components/Certifications"));
 const Testimonials = dynamic(() => import("./components/Testimonials"));
 const FinalCta = dynamic(() => import("./components/FinalCta"));
 const Footer = dynamic(() => import("./components/Footer"));
@@ -51,6 +52,7 @@ export default function Home() {
 
       <Chapter index={2} num="03 / 03 — Record" word="Record" photo="/img/gallery-3.jpg" />
       <Achievements />
+      <Certifications />
       <Testimonials />
 
       <FinalCta />
