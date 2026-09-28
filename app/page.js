@@ -20,6 +20,7 @@ const Journey = dynamic(() => import("./components/Journey"));
 const Approach = dynamic(() => import("./components/Approach"));
 const Results = dynamic(() => import("./components/Results"));
 const Gallery = dynamic(() => import("./components/Gallery"));
+const TrainingReel = dynamic(() => import("./components/TrainingReel"));
 const Works = dynamic(() => import("./components/Works"));
 const Achievements = dynamic(() => import("./components/Achievements"));
 const Certifications = dynamic(() => import("./components/Certifications"));
@@ -48,6 +49,7 @@ export default function Home() {
       <Chapter index={1} num="02 / 03 — Proof" word="Proof" photo="/img/gallery-2.jpg" />
       <Results />
       <Gallery />
+      <TrainingReel />
       <Works />
 
       <Chapter index={2} num="03 / 03 — Record" word="Record" photo="/img/gallery-3.jpg" />
