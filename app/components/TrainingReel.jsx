@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { useScrollReveal, useMediaReveal } from "@/app/hooks/useScrollReveal";
+import { useScrollReveal } from "@/app/hooks/useScrollReveal";
 
 const CLIPS = [
   { src: "/img/train-1.mp4", label: "Coaching the lift" },
@@ -12,7 +12,6 @@ const CLIPS = [
 export default function TrainingReel() {
   const sectionRef = useRef(null);
   useScrollReveal(sectionRef);
-  useMediaReveal(sectionRef);
 
   return (
     <section className="reel" ref={sectionRef}>
@@ -30,7 +29,7 @@ export default function TrainingReel() {
       <div className="wrap" style={{ marginTop: 40 }}>
         <div className="reel-grid">
           {CLIPS.map((c) => (
-            <div className="reel-card reveal-media" key={c.src}>
+            <div className="reel-card reveal" data-reveal key={c.src}>
               <video
                 src={c.src}
                 autoPlay

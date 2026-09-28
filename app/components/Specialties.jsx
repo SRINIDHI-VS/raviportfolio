@@ -5,19 +5,19 @@ import Image from "next/image";
 import { useSpecialtyChipsReveal } from "@/app/hooks/useScrollReveal";
 
 const SPECIALTIES = [
-  { label: "Online Training", photo: null },
-  { label: "Group Classes", photo: null },
-  { label: "Body Transformation", photo: "/img/client-somashekar.jpg" },
+  { label: "Online Training", photo: "/img/svc-online-training.jpg" },
+  { label: "Group Classes", photo: "/img/svc-group-classes.jpg" },
+  { label: "Body Transformation", photo: "/img/svc-body-transformation.jpg" },
   { label: "Weight Management", photo: "/img/gallery-6.jpg" },
-  { label: "Athletic Fitness", photo: "/img/flex-location.jpg" },
-  { label: "Diet & Nutrition", photo: null },
-  { label: "Crossfit Friendly", photo: null },
-  { label: "30/10 Tabata", photo: null },
-  { label: "Strengthening", photo: "/img/svc-strength.jpg" },
-  { label: "Stretching", photo: null },
-  { label: "Animal Cardio", photo: null },
-  { label: "Zumba", photo: null },
-  { label: "Resistance Band", photo: "/img/svc-band.jpg" },
+  { label: "Athletic Fitness", photo: "/img/svc-athletic-fitness.jpg" },
+  { label: "Diet & Nutrition", photo: "/img/svc-diet-nutrition.jpg" },
+  { label: "Crossfit Friendly", photo: "/img/svc-crossfit.jpg" },
+  { label: "30/10 Tabata", photo: "/img/svc-tabata.jpg" },
+  { label: "Strengthening", photo: "/img/svc-strengthening.jpg" },
+  { label: "Stretching", photo: "/img/svc-stretching.jpg" },
+  { label: "Animal Cardio", photo: "/img/svc-animal-cardio.jpg" },
+  { label: "Zumba", photo: "/img/svc-zumba.jpg" },
+  { label: "Resistance Band", photo: "/img/svc-resistance-band.jpg" },
 ];
 
 const CheckIcon = () => (

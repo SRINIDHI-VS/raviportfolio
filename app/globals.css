@@ -334,6 +334,13 @@ a {
   .specialty-chip:nth-child(4)::after{animation-delay:1.5s;}
   .specialty-chip:nth-child(5)::after{animation-delay:2s;}
   .specialty-chip:nth-child(6)::after{animation-delay:2.5s;}
+  .specialty-chip:nth-child(7)::after{animation-delay:3s;}
+  .specialty-chip:nth-child(8)::after{animation-delay:3.5s;}
+  .specialty-chip:nth-child(9)::after{animation-delay:4s;}
+  .specialty-chip:nth-child(10)::after{animation-delay:.2s;}
+  .specialty-chip:nth-child(11)::after{animation-delay:.7s;}
+  .specialty-chip:nth-child(12)::after{animation-delay:1.2s;}
+  .specialty-chip:nth-child(13)::after{animation-delay:1.7s;}
   @keyframes chip-sheen{ 0%, 55%{left:-60%;} 100%{left:130%;} }
   .specialty-chip .dot-icon{
     display:flex; align-items:center; justify-content:center; width:22px; height:22px; border-radius:50%;
@@ -715,6 +722,7 @@ a {
   }
 
 /* TRAINING REEL — short autoplaying clips of real sessions, sits after the photo stack */
+.reel{padding:70px 0;}
 .reel-grid{
   display:grid; grid-template-columns:repeat(3,1fr); gap:20px;
 }
