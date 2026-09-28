@@ -10,8 +10,18 @@ const TESTIMONIALS = [
       "I've been training with Ravindra for a while now, and what I love most about his approach is how personalised his workouts are. He really pays attention to my energy levels, how my body is responding, my strengths and weaknesses, and adapts the workout accordingly. He pushes me when I can handle it, but also knows when to ease off, which has helped me build strength and confidence without feeling overwhelmed. He is very attentive to form and technique, and somehow manages to make even the workouts I dread enjoyable. I genuinely look forward to training with him and would highly recommend him to anyone looking for a trainer who actually understands and works with the person in front of him.",
     attribution: "Verified client · WhatsApp",
   },
-  { filled: false },
-  { filled: false },
+  {
+    filled: true,
+    quote:
+      "Training with Ravi has been one of my best decisions. He pays close attention to my form, adjusts sessions when I'm having an off day, and pushes me just enough to hit lifts I didn't think I could. He also explains the \u201cwhy\u201d behind each exercise, so I'm actually learning \u2014 knowledgeable, patient, and genuinely invested in your progress. I'm a changed man, with more strength and more confidence. Highly recommend him.",
+    attribution: "Verified client · WhatsApp",
+  },
+  {
+    filled: true,
+    quote:
+      "I've been training with Ravindra for a while now, and I'm really happy with the progress I've made. He understands my fitness goals and adapts the workouts based on my energy levels, strengths, and limitations. He knows when to push me and when to ease off, while always paying close attention to form and technique. His positive attitude keeps the sessions motivating and enjoyable. I really appreciate his dedication and personalised approach, and I would definitely recommend Ravindra to anyone looking for a supportive and knowledgeable trainer.",
+    attribution: "Verified client · WhatsApp",
+  },
 ];
 
 function TestiCard({ t, hidden }) {

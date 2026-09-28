@@ -13,7 +13,7 @@ import "@fontsource/big-shoulders-display/900";
 import "./globals.css";
 import { SITE_URL, CONTACT } from "@/app/lib/siteConfig";
 
-const TITLE = "Ravi Fitness — Personal Training in Bengaluru";
+const TITLE = "Ravi Gym — Personal Training in Bengaluru";
 const DESCRIPTION =
   "One-on-one and group personal training in Bengaluru. Sessions run at the client's own home or gym — every plan built around you, not a template.";
 
@@ -33,16 +33,16 @@ export const metadata = {
     title: TITLE,
     description: DESCRIPTION,
     url: SITE_URL,
-    siteName: "Ravi Fitness",
+    siteName: "Ravi Gym",
     type: "website",
     locale: "en_IN",
-    images: [{ url: "/img/hero.jpg", width: 700, height: 880, alt: "Ravi, personal trainer" }],
+    images: [{ url: "/img/og-image.jpg", width: 1200, height: 630, alt: "Ravi Gym logo" }],
   },
   twitter: {
     card: "summary_large_image",
     title: TITLE,
     description: DESCRIPTION,
-    images: ["/img/hero.jpg"],
+    images: ["/img/og-image.jpg"],
   },
 };
 
@@ -53,10 +53,10 @@ export const metadata = {
 const JSON_LD = {
   "@context": "https://schema.org",
   "@type": "ExerciseGym",
-  name: "Ravi Fitness",
+  name: "Ravi Gym",
   description: DESCRIPTION,
   url: SITE_URL,
-  image: `${SITE_URL}/img/hero.jpg`,
+  image: `${SITE_URL}/img/og-image.jpg`,
   telephone: CONTACT.phoneE164,
   email: CONTACT.email,
   areaServed: { "@type": "City", name: "Bengaluru" },

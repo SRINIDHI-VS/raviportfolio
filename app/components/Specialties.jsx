@@ -10,6 +10,13 @@ const SPECIALTIES = [
   "Weight Management",
   "Athletic Fitness",
   "Diet & Nutrition",
+  "Crossfit Friendly",
+  "30/10 Tabata",
+  "Strengthening",
+  "Stretching",
+  "Animal Cardio",
+  "Zumba",
+  "Resistance Band",
 ];
 
 const CheckIcon = () => (

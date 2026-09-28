@@ -20,7 +20,7 @@ export default function Footer() {
             <LogoMark />
           </div>
           <div>
-            <div className="fname disp">RAVI</div>
+            <div className="fname disp">RAVI GYM</div>
             <p className="footer-tagline">Personal Training · Bengaluru</p>
           </div>
         </div>
