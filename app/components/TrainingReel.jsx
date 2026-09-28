@@ -5,7 +5,7 @@ import { useScrollReveal, useMediaReveal } from "@/app/hooks/useScrollReveal";
 
 const CLIPS = [
   { src: "/img/train-1.mp4", label: "Coaching the lift" },
-  { src: "/img/train-2.mp4", label: "Band-resisted squat" },
+  { src: "/img/train-2.mp4", label: "Close-spot coaching" },
   { src: "/img/train-3.mp4", label: "Coaching, side by side" },
 ];
 
