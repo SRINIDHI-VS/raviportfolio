@@ -309,44 +309,53 @@ a {
           if the visitor never touches it — the "excite them without needing a tap" ask.
      Desktop hover uses the standalone `translate` property (not `transform`) specifically so it
      never collides with GSAP's scroll-scrubbed inline `transform` on the same element. */
-  .specialties{padding:10px 0 80px;}
-  .spec-grid{
-    display:grid; grid-template-columns:repeat(4,1fr); gap:16px;
-  }
-  .spec-card{
-    position:relative; border-radius:16px; overflow:hidden; aspect-ratio:4/5;
-    border:1px solid var(--border); background:rgba(255,255,255,.02);
-    transition:border-color .3s, translate .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s;
+  .specialties{padding:0 0 70px;}
+  .specialties .wrap{display:flex; flex-wrap:wrap; justify-content:center; gap:12px;}
+  .specialty-chip{
+    display:inline-flex; align-items:center; gap:9px; border:1px solid var(--border); border-radius:999px;
+    padding:10px 18px 10px 14px; font-size:13px; font-weight:700; color:var(--muted); letter-spacing:.01em;
+    background:rgba(255,255,255,.02); position:relative; isolation:isolate; overflow:hidden;
     translate:0 0;
+    transition:border-color .3s, background .3s, box-shadow .3s, color .3s, translate .3s cubic-bezier(.2,.8,.2,1);
   }
-  .spec-card.has-photo .spec-label{
-    position:absolute; left:12px; right:12px; bottom:12px; z-index:2;
-    font-size:13px; font-weight:800; color:var(--text); letter-spacing:.01em;
+  .specialty-chip::before{
+    content:""; position:absolute; inset:0; border-radius:inherit; z-index:-1; opacity:0;
+    background:radial-gradient(circle at 30% 30%, rgba(201,162,75,.22), transparent 70%);
+    transition:opacity .3s;
   }
-  .spec-card.has-photo::after{
-    content:""; position:absolute; inset:0; z-index:1; pointer-events:none;
-    background:linear-gradient(180deg, rgba(0,0,0,0) 45%, rgba(0,0,0,.62) 100%);
+  .specialty-chip::after{
+    content:""; position:absolute; top:0; left:-60%; width:40%; height:100%; z-index:1; pointer-events:none;
+    background:linear-gradient(115deg, transparent, rgba(255,225,160,.22), transparent);
+    transform:skewX(-18deg); animation:chip-sheen 4.6s ease-in-out infinite;
   }
-  .spec-card.icon-only{
-    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px;
-    background:radial-gradient(circle at 50% 30%, rgba(201,162,75,.1), transparent 70%);
+  .specialty-chip:nth-child(1)::after{animation-delay:0s;}
+  .specialty-chip:nth-child(2)::after{animation-delay:.5s;}
+  .specialty-chip:nth-child(3)::after{animation-delay:1s;}
+  .specialty-chip:nth-child(4)::after{animation-delay:1.5s;}
+  .specialty-chip:nth-child(5)::after{animation-delay:2s;}
+  .specialty-chip:nth-child(6)::after{animation-delay:2.5s;}
+  @keyframes chip-sheen{ 0%, 55%{left:-60%;} 100%{left:130%;} }
+  .specialty-chip .dot-icon{
+    display:flex; align-items:center; justify-content:center; width:22px; height:22px; border-radius:50%;
+    background:rgba(201,162,75,.1); flex:none; position:relative; z-index:1; overflow:hidden;
+    transition:background .3s, transform .35s cubic-bezier(.34,1.56,.64,1);
   }
-  .spec-card.icon-only .spec-icon{
-    display:flex; align-items:center; justify-content:center; width:46px; height:46px; border-radius:50%;
-    background:rgba(201,162,75,.12); transition:background .3s, transform .35s cubic-bezier(.34,1.56,.64,1);
-  }
-  .spec-card.icon-only svg{width:22px; height:22px; color:var(--gold);}
-  .spec-card.icon-only .spec-label{
-    font-size:13px; font-weight:700; color:var(--muted); text-align:center; padding:0 14px;
-  }
+  .specialty-chip svg{width:14px; height:14px; color:var(--gold); flex:none; position:relative; z-index:1; transition:transform .35s cubic-bezier(.34,1.56,.64,1), color .3s;}
+  .specialty-chip .chip-label{position:relative; z-index:1;}
+  .specialty-chip:active{translate:0 -2px; border-color:var(--gold-soft); background:rgba(201,162,75,.07);}
+  .specialty-chip:active .dot-icon{background:var(--gold); transform:scale(1.1);}
+  .specialty-chip:active svg{color:#171310;}
   @media(hover:hover){
-    .spec-card:hover{translate:0 -4px; border-color:var(--gold-soft); box-shadow:0 16px 34px -20px rgba(201,162,75,.5);}
-    .spec-card.icon-only:hover .spec-icon{background:var(--gold); transform:scale(1.1);}
-    .spec-card.icon-only:hover svg{color:#171310;}
-    .spec-card.icon-only:hover .spec-label{color:var(--text);}
+    .specialty-chip:hover{translate:0 -4px; border-color:var(--gold-soft); color:var(--text); box-shadow:0 16px 34px -20px rgba(201,162,75,.5);}
+    .specialty-chip:hover::before{opacity:1;}
+    .specialty-chip:hover .dot-icon{background:var(--gold); transform:scale(1.1);}
+    .specialty-chip:hover svg{color:#171310; transform:rotate(-6deg) scale(1.05);}
   }
+  @media(prefers-reduced-motion:reduce){ .specialty-chip::after{animation:none; display:none;} }
   @media(max-width:900px){
-    .spec-grid{grid-template-columns:repeat(2,1fr); gap:12px;}
+    .specialties{padding-bottom:50px;}
+    .specialties .wrap{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+    .specialty-chip{font-size:12.5px; padding:9px 15px 9px 12px; justify-content:center;}
   }
 
   .scroll-cue{position:absolute; bottom:28px; left:50%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:8px; color:var(--muted-2); font-size:11px; letter-spacing:.16em; text-transform:uppercase; z-index:2;}
