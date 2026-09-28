@@ -1,7 +1,9 @@
+import { SITE_URL } from "@/app/lib/siteConfig";
+
 export default function sitemap() {
   return [
     {
-      url: "https://raviportfolio-smoky.vercel.app",
+      url: SITE_URL,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 1,

@@ -1,4 +1,4 @@
-export const SITE_URL = "https://raviportfolio-smoky.vercel.app";
+export const SITE_URL = "https://fitnesswithravindra.vercel.app";
 
 export const CONTACT = {
   whatsappNumber: "919902269943", // no "+" — this is the format wa.me links expect
