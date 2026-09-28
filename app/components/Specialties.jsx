@@ -21,9 +21,8 @@ const SPECIALTIES = [
 ];
 
 const CheckIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-    <circle cx="12" cy="12" r="9" />
-    <path d="M8 12.5l2.5 2.5L16 9" strokeLinecap="round" strokeLinejoin="round" />
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" aria-hidden="true">
+    <path d="M4 12l5 5L20 6" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 );
 
@@ -34,18 +33,24 @@ export default function Specialties() {
   return (
     <section className="specialties" ref={sectionRef}>
       <div className="wrap">
-        {SPECIALTIES.map((s) => (
-          <div className="specialty-chip reveal" key={s.label}>
-            <span className="dot-icon">
-              {s.photo ? (
-                <Image src={s.photo} alt="" fill sizes="22px" style={{ objectFit: "cover" }} />
-              ) : (
+        <div className="specialty-track">
+          {SPECIALTIES.map((s) => (
+            <div className="specialty-card reveal" key={s.label}>
+              <Image
+                src={s.photo}
+                alt={s.label}
+                fill
+                sizes="(max-width:520px) 46vw, (max-width:900px) 40vw, 200px"
+                style={{ objectFit: "cover" }}
+              />
+              <span className="specialty-scrim" />
+              <span className="specialty-badge">
                 <CheckIcon />
-              )}
-            </span>
-            <span className="chip-label">{s.label}</span>
-          </div>
-        ))}
+              </span>
+              <span className="specialty-label">{s.label}</span>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
