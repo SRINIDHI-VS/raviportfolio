@@ -79,7 +79,7 @@ a {
 }
 
 /* standalone translate/rotate/scale properties are used throughout for CSS-driven hover/active
-   states (see .footer-chip / .specialty-chip below) specifically so they never share the
+   states (see .footer-chip / .pass-card below) specifically so they never share the
    `transform` property with GSAP-driven animation on the same element. See the long note in
    app/hooks/useScrollReveal.js for exactly why this separation matters under React's render
    cycle — it's a stricter requirement here than in the original vanilla build. */
@@ -299,78 +299,80 @@ a {
   @keyframes cardfloat{0%,100%{transform:translateY(0);} 50%{transform:translateY(-10px);}}
   @media(prefers-reduced-motion:reduce){ .hero-card{animation:none;} }
 
-  /* SPECIALTIES — quick-scan capability grid, straight under the hero.
-     Was a wrapped cloud of text pills with a 22px thumbnail buried inside each one — the photo
-     was too small to read as anything, and pill width followed label length so the rows looked
-     accidental rather than designed. Now each specialty is a full-bleed photo card (same visual
-     language as .reel-card below: image fills the card, a bottom scrim carries the label). Two
-     motion layers, both proven to actually be seen on a phone (not dependent on a mouse hover,
-     which barely exists on touch):
-       1. entrance is scroll-SCRUBBED (bound to GSAP's `transform`, directly to scroll position),
-          not a fire-once timed tween — so it can never be missed by scrolling fast past it, and
-          it can't be silently skipped by a slow device either.
-       2. the image itself drifts to a slightly larger scale as each card enters, so the section
-          feels alive even before anyone touches it.
-     Desktop hover uses the standalone `translate` property (not `transform`) specifically so it
-     never collides with GSAP's scroll-scrubbed inline `transform` on the same element.
-     Desktop: a flowing photo grid. Mobile: a horizontal swipe carousel (scroll-snap) instead of
-     a tall stack — 13 cards stacked two-per-row used to push everything else below it down by a
-     screen and a half; swiping sideways through them reads as an app-like gallery instead. */
-  .specialties{padding:0 0 70px;}
-  .specialties .wrap{overflow:visible;}
-  .specialty-track{
-    display:grid; grid-template-columns:repeat(auto-fill, minmax(150px, 1fr)); gap:16px;
+  /* SPECIALTIES — quick-scan capability strip, straight under the hero.
+     Went through two earlier versions: a wrapped cloud of text pills with a 22px thumbnail buried
+     inside each one (unreadable, ragged row widths), then a full-bleed photo-card grid (the stock
+     photos' teal tones clashed with the gold/black palette and a uniform 7-up grid read flat).
+     This version treats each specialty as a small "class pass": a torn-ticket-stub number strip
+     plus a deliberately small, heavily desaturated circular photo — so the stock photography is a
+     minor accent, not the focus — riding on two belts that drift continuously in opposite
+     directions and pause under the cursor. Motion (not a big photo) carries the section, and it
+     runs identically on desktop and mobile since it never depends on scroll position or a hover
+     to be seen. `width:100vw` + negative auto-margins bleeds the belts to the true viewport edge
+     regardless of body's side gutter; body already sets `overflow-x:hidden` (see body{} above) so
+     this can't introduce a horizontal scrollbar. Pause-on-hover is wrapped in `@media(hover:hover)`
+     like every other hover effect in this file, so a touch tap can't leave a belt stuck paused. */
+  .specialties{padding:60px 0 70px;}
+  .pass-belts{
+    width:100vw; margin-left:calc(50% - 50vw); margin-right:calc(50% - 50vw);
+    display:flex; flex-direction:column; gap:20px;
   }
-  .specialty-card{
-    position:relative; aspect-ratio:4/5; border-radius:16px; overflow:hidden; isolation:isolate;
-    border:1px solid var(--border); background:#100f0c; translate:0 0;
-    transition:border-color .3s, translate .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s;
+  .pass-belt{
+    position:relative; overflow:hidden; padding:14px 0;
+    -webkit-mask-image:linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+    mask-image:linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
   }
-  /* hover-zoom uses the standalone `scale` property, not `transform` — the entrance tween below
-     drives the photo's zoom-in through GSAP's `scale` (which composites into `transform`), and a
-     CSS hover rule on `transform` would go permanently dead the instant that inline transform is
-     set, same collision the .reel-card/.specialty-chip hover states already work around. */
-  .specialty-card img{scale:1; transition:scale .7s cubic-bezier(.2,.8,.2,1);}
-  .specialty-scrim{
-    position:absolute; inset:0; z-index:1; pointer-events:none;
-    background:linear-gradient(180deg, transparent 38%, rgba(11,11,12,.42) 68%, rgba(11,11,12,.9) 100%);
+  .pass-track{display:flex; gap:18px; width:max-content;}
+  .pass-track-a{animation:passScrollLeft 42s linear infinite;}
+  .pass-track-b{animation:passScrollRight 38s linear infinite;}
+  @keyframes passScrollLeft{from{transform:translateX(0);} to{transform:translateX(-50%);}}
+  @keyframes passScrollRight{from{transform:translateX(-50%);} to{transform:translateX(0);}}
+  @media(prefers-reduced-motion:reduce){ .pass-track{animation:none;} }
+  .pass-card{
+    position:relative; display:flex; align-items:stretch; flex-shrink:0; height:74px;
+    border-radius:37px; background:var(--surface); border:1px solid var(--border); translate:0 0;
+    transition:border-color .3s, translate .3s cubic-bezier(.2,.8,.2,1);
   }
-  .specialty-badge{
-    position:absolute; top:10px; right:10px; z-index:2; width:24px; height:24px; border-radius:50%;
-    display:flex; align-items:center; justify-content:center;
-    background:rgba(11,11,12,.55); border:1px solid rgba(201,162,75,.4);
-    backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
-    transition:background .3s, border-color .3s;
-  }
-  .specialty-badge svg{width:12px; height:12px; color:var(--gold-soft); transition:color .3s;}
-  .specialty-label{
-    position:absolute; left:12px; right:12px; bottom:11px; z-index:2;
-    font-size:13px; font-weight:800; color:var(--text); letter-spacing:.01em; line-height:1.25;
-  }
-  .specialty-card:active{translate:0 -2px; border-color:var(--gold-soft);}
+  .pass-card:active{translate:0 -2px; border-color:var(--gold-soft);}
   @media(hover:hover){
-    .specialty-card:hover{translate:0 -5px; border-color:var(--gold-soft); box-shadow:0 18px 36px -18px rgba(201,162,75,.5);}
-    .specialty-card:hover img{scale:1.09;}
-    .specialty-card:hover .specialty-badge{background:var(--gold); border-color:var(--gold);}
-    .specialty-card:hover .specialty-badge svg{color:#171310;}
+    .pass-belt:hover .pass-track{animation-play-state:paused;}
+    .pass-card:hover{translate:0 -3px; border-color:var(--gold-soft);}
   }
-  @media(max-width:900px){
-    .specialties{padding-bottom:50px;}
-    /* body carries a fixed 20px side gutter at every width (see body{padding-left/right} above),
-       so .wrap is already inset 20px from the true viewport edge here. The negative margin cancels
-       that just for this scroll track, so the carousel can run edge-to-edge and the next card
-       peeks in at the right — the visual cue that it's swipeable. The matching padding puts the
-       first/last card back in line with the rest of the page's content instead of touching glass. */
-    .specialty-track{
-      display:flex; grid-template-columns:none; gap:12px; overflow-x:auto; scroll-snap-type:x mandatory;
-      margin:0 -20px; padding:4px 20px 10px; -webkit-overflow-scrolling:touch; scrollbar-width:none;
-    }
-    .specialty-track::-webkit-scrollbar{display:none;}
-    .specialty-card{flex:0 0 40%; scroll-snap-align:start;}
-    .specialty-label{font-size:12.5px;}
+  .pass-stub{
+    position:relative; width:30px; flex-shrink:0; display:flex; align-items:center;
+    justify-content:center; border-right:1px dashed var(--border);
   }
-  @media(max-width:520px){
-    .specialty-card{flex:0 0 46%;}
+  .pass-stub::before, .pass-stub::after{
+    content:""; position:absolute; right:-6px; width:12px; height:12px; border-radius:50%;
+    background:var(--ink);
+  }
+  .pass-stub::before{top:-6px;}
+  .pass-stub::after{bottom:-6px;}
+  .pass-stub em{
+    font-style:normal; font-family:"Big Shoulders Display", sans-serif; font-weight:700;
+    font-size:11px; color:var(--muted-2); letter-spacing:.08em;
+    writing-mode:vertical-rl; transform:rotate(180deg);
+  }
+  .pass-body{display:flex; align-items:center; gap:13px; padding:0 22px 0 14px;}
+  .pass-thumb{
+    position:relative; width:48px; height:48px; border-radius:50%; overflow:hidden;
+    border:1.5px solid rgba(201,162,75,.55); flex-shrink:0;
+  }
+  .pass-thumb img{filter:grayscale(70%) sepia(12%) saturate(120%) brightness(.82) contrast(1.05);}
+  .pass-name{
+    font-family:"Big Shoulders Display", sans-serif; font-weight:700; font-size:15px;
+    letter-spacing:.01em; color:var(--text); white-space:nowrap;
+  }
+  @media(max-width:600px){
+    .specialties{padding:44px 0 50px;}
+    .pass-belts{gap:14px;}
+    .pass-track{gap:12px;}
+    .pass-card{height:60px; border-radius:30px;}
+    .pass-stub{width:24px;}
+    .pass-stub em{font-size:10px;}
+    .pass-body{gap:10px; padding:0 16px 0 10px;}
+    .pass-thumb{width:38px; height:38px;}
+    .pass-name{font-size:13px;}
   }
 
   /* IN MOTION — training reel: three muted, autoplaying clips in a bordered card grid, paired
@@ -648,7 +650,7 @@ a {
      for the specialty row — hover lift and tap feedback on the standalone `translate`
      property, never `transform`, since these chips carry the `.reveal` class and GSAP's
      one-shot entrance tween leaves its own inline `transform` sitting on the element forever
-     after it plays (see the specialty-chip notes above) — same conflict, same fix. */
+     after it plays (see the pass-card notes above) — same conflict, same fix. */
   footer{position:relative; padding:64px 0 calc(40px + env(safe-area-inset-bottom,0px)); border-top:1px solid var(--border); font-size:13px; color:var(--muted-2); overflow:hidden; scroll-margin-top:100px;}
   .footer-glow{position:absolute; top:-130px; left:50%; translate:-50% 0; width:680px; height:340px; background:radial-gradient(ellipse at center, rgba(201,162,75,.15), transparent 72%); pointer-events:none; z-index:0;}
   .footer-brand-row{display:flex; align-items:center; gap:20px; position:relative; z-index:1;}

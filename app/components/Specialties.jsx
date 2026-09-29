@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import Image from "next/image";
-import { useSpecialtyChipsReveal } from "@/app/hooks/useScrollReveal";
+import { useScrollReveal } from "@/app/hooks/useScrollReveal";
 
 const SPECIALTIES = [
   { label: "Online Training", photo: "/img/svc-online-training.jpg" },
@@ -20,37 +20,47 @@ const SPECIALTIES = [
   { label: "Resistance Band", photo: "/img/svc-resistance-band.jpg" },
 ];
 
-const CheckIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" aria-hidden="true">
-    <path d="M4 12l5 5L20 6" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
+const BELT_A = SPECIALTIES.slice(0, 7).map((s, i) => ({ ...s, num: i + 1 }));
+const BELT_B = SPECIALTIES.slice(7).map((s, i) => ({ ...s, num: i + 8 }));
+
+function PassCard({ s, dupKey }) {
+  return (
+    <div className="pass-card">
+      <span className="pass-stub">
+        <em>{String(s.num).padStart(2, "0")}</em>
+      </span>
+      <span className="pass-body">
+        <span className="pass-thumb">
+          <Image src={s.photo} alt={s.label} fill sizes="56px" style={{ objectFit: "cover" }} />
+        </span>
+        <span className="pass-name">{s.label}</span>
+      </span>
+    </div>
+  );
+}
+
+function Belt({ items, direction }) {
+  const doubled = [...items, ...items];
+  return (
+    <div className="pass-belt">
+      <div className={`pass-track pass-track-${direction}`}>
+        {doubled.map((s, i) => (
+          <PassCard key={`${s.label}-${i}`} s={s} />
+        ))}
+      </div>
+    </div>
+  );
+}
 
 export default function Specialties() {
   const sectionRef = useRef(null);
-  useSpecialtyChipsReveal(sectionRef);
+  useScrollReveal(sectionRef);
 
   return (
     <section className="specialties" ref={sectionRef}>
-      <div className="wrap">
-        <div className="specialty-track">
-          {SPECIALTIES.map((s) => (
-            <div className="specialty-card reveal" key={s.label}>
-              <Image
-                src={s.photo}
-                alt={s.label}
-                fill
-                sizes="(max-width:520px) 46vw, (max-width:900px) 40vw, 200px"
-                style={{ objectFit: "cover" }}
-              />
-              <span className="specialty-scrim" />
-              <span className="specialty-badge">
-                <CheckIcon />
-              </span>
-              <span className="specialty-label">{s.label}</span>
-            </div>
-          ))}
-        </div>
+      <div className="pass-belts" data-reveal>
+        <Belt items={BELT_A} direction="a" />
+        <Belt items={BELT_B} direction="b" />
       </div>
     </section>
   );
