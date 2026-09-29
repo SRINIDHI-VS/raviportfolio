@@ -300,34 +300,45 @@ a {
   @media(prefers-reduced-motion:reduce){ .hero-card{animation:none;} }
 
   /* SPECIALTIES — quick-scan capability strip, straight under the hero.
-     Went through two earlier versions: a wrapped cloud of text pills with a 22px thumbnail buried
-     inside each one (unreadable, ragged row widths), then a full-bleed photo-card grid (the stock
-     photos' teal tones clashed with the gold/black palette and a uniform 7-up grid read flat).
-     This version treats each specialty as a small "class pass": a torn-ticket-stub number strip
-     plus a deliberately small, heavily desaturated circular photo — so the stock photography is a
-     minor accent, not the focus — riding on two belts that drift continuously in opposite
-     directions and pause under the cursor. Motion (not a big photo) carries the section, and it
-     runs identically on desktop and mobile since it never depends on scroll position or a hover
-     to be seen. `width:100vw` + negative auto-margins bleeds the belts to the true viewport edge
-     regardless of body's side gutter; body already sets `overflow-x:hidden` (see body{} above) so
-     this can't introduce a horizontal scrollbar. Pause-on-hover is wrapped in `@media(hover:hover)`
-     like every other hover effect in this file, so a touch tap can't leave a belt stuck paused. */
+     Went through three earlier versions: a wrapped cloud of text pills with a 22px thumbnail
+     buried inside each one (unreadable, ragged row widths), a full-bleed photo-card grid (the
+     stock photos' teal tones clashed with the gold/black palette and a uniform 7-up grid read
+     flat), then this "class pass" belt — a torn-ticket-stub number strip plus a deliberately
+     small, heavily desaturated circular photo — driven by a plain CSS keyframe loop. That CSS
+     version could only ever auto-play: `overflow:hidden` blocked any manual scroll, so a visitor
+     who wanted to linger on one card or browse at their own pace on a mouse-driven desktop had no
+     way to do it (a touchscreen swipe at least nudges native page/element scroll heuristics, which
+     is why it could look like "scrolling" worked there and not on desktop). Each belt is now a
+     real horizontally-scrollable element (`.pass-belt{overflow-x:auto}`, scrollbar hidden) that
+     JS (see the `useMarqueeBelt` hook in Specialties.jsx) auto-advances via `scrollLeft` on an
+     animation frame loop, wrapping seamlessly at the halfway point since the item list is
+     duplicated. That loop yields — and the belt becomes plain manually-scrollable content — the
+     moment a visitor's mouse hovers it, drags it (click-and-drag, cursor becomes a "grab" hand),
+     or a finger touches it (native touch scroll takes over completely); it resumes shortly after
+     they let go. `prefers-reduced-motion` is honored in JS by never starting the auto-advance loop
+     at all, leaving the belt static but still fully scrollable by hand.
+     `width:100vw` + negative auto-margins bleeds the belts to the true viewport edge regardless of
+     body's side gutter; body already sets `overflow-x:hidden` (see body{} above) so this can't
+     introduce a page-level horizontal scrollbar. */
   .specialties{padding:60px 0 70px;}
   .pass-belts{
     width:100vw; margin-left:calc(50% - 50vw); margin-right:calc(50% - 50vw);
     display:flex; flex-direction:column; gap:20px;
   }
   .pass-belt{
-    position:relative; overflow:hidden; padding:14px 0;
+    position:relative; overflow-x:auto; overflow-y:hidden; padding:14px 0; cursor:grab;
+    touch-action:pan-x; -webkit-overflow-scrolling:touch;
+    scrollbar-width:none; -ms-overflow-style:none;
+    user-select:none; -webkit-user-select:none;
     -webkit-mask-image:linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
     mask-image:linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
   }
+  .pass-belt::-webkit-scrollbar{display:none;}
+  .pass-belt.is-dragging{cursor:grabbing;}
+  /* browsers make <img> natively draggable, which would hijack our click-and-drag scroll the
+     instant a drag starts on top of a thumbnail instead of the card around it. */
+  .pass-thumb img{-webkit-user-drag:none; user-drag:none;}
   .pass-track{display:flex; gap:18px; width:max-content;}
-  .pass-track-a{animation:passScrollLeft 42s linear infinite;}
-  .pass-track-b{animation:passScrollRight 38s linear infinite;}
-  @keyframes passScrollLeft{from{transform:translateX(0);} to{transform:translateX(-50%);}}
-  @keyframes passScrollRight{from{transform:translateX(-50%);} to{transform:translateX(0);}}
-  @media(prefers-reduced-motion:reduce){ .pass-track{animation:none;} }
   .pass-card{
     position:relative; display:flex; align-items:stretch; flex-shrink:0; height:74px;
     border-radius:37px; background:var(--surface); border:1px solid var(--border); translate:0 0;
@@ -335,7 +346,6 @@ a {
   }
   .pass-card:active{translate:0 -2px; border-color:var(--gold-soft);}
   @media(hover:hover){
-    .pass-belt:hover .pass-track{animation-play-state:paused;}
     .pass-card:hover{translate:0 -3px; border-color:var(--gold-soft);}
   }
   .pass-stub{
